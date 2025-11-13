@@ -42,6 +42,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         {...props}
       >
+        {(variant === 'gradient' || variant === 'primary') && (
+          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full animate-shimmer" />
+        )}
         {loading && (
           <svg
             className="animate-spin -ml-1 mr-2 h-4 w-4"
