@@ -13,7 +13,7 @@
     "react-dom": "19.2.0",
     "next": "16.0.1",
     "@supabase/supabase-js": "^2.39.7",
-    "@supabase/ssr": "^0.0.11",
+    "@supabase/ssr": "^0.1.0",
     "axios": "^1.6.7",
     "agora-rtc-sdk-ng": "^4.22.0",
     "socket.io-client": "^4.7.4",
