@@ -100,12 +100,20 @@ export default function Dashboard() {
 
         <main className="flex-1 p-6">
           <div className="max-w-6xl mx-auto">
+            {/* Back Button */}
+            <div className="mb-6">
+              <Link href="/" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Link>
+            </div>
+
             {/* Welcome Section */}
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Welcome back, {user?.username || 'Player'}! 👋
+              <h1 className="text-3xl font-bold text-white">
+                Welcome back, {user?.firstName || user?.username || 'Player'}! 👋
               </h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">
+              <p className="text-gray-400 mt-2">
                 Ready to challenge someone? Choose a game and start playing.
               </p>
             </div>
