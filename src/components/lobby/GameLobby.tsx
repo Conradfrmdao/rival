@@ -93,16 +93,22 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-6xl mx-auto p-6">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Game Lobby
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Choose your game and challenge an opponent
-          </p>
+    <div className="min-h-screen bg-black">
+      <div className="relative">
+        {/* Animated Background */}
+        <div className="fixed inset-0 bg-gradient-to-br from-purple-900/20 via-black to-blue-900/20">
+          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
         </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto p-6">
+          <div className="mb-8 text-center">
+            <h1 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-2">
+              Game Lobby
+            </h1>
+            <p className="text-gray-300 text-lg">
+              Choose your battle and challenge worthy opponents
+            </p>
+          </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Game Selection */}
