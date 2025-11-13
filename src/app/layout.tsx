@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "Real-money peer-to-peer gaming platform with skill-based games",
 };
 
+import ClientWrapper from '@/components/ClientWrapper';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ClientWrapper>
+          {children}
+        </ClientWrapper>
       </body>
     </html>
   );
