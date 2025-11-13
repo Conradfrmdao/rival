@@ -126,7 +126,7 @@ export default function StakeHomePage() {
             >
               <Badge variant="glow" className="mb-6">
                 <Sparkles className="w-4 h-4 mr-2" />
-                #1 P2P Gaming Platform in Africa
+                Uganda's Premier P2P Gaming Platform
               </Badge>
               <div className="flex items-center justify-center gap-4 mb-6">
                 <Flame className="w-8 h-8 text-orange-500 animate-pulse" />
