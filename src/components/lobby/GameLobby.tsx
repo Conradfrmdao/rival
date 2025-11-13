@@ -9,6 +9,7 @@ import { useWalletStore } from '@/store/walletStore';
 import { formatCurrency } from '@/lib/utils';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import GameImage from '@/components/games/GameImages';
 
 interface GameLobbyProps {
   gameType?: string;
