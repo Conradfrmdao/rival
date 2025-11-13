@@ -22,8 +22,18 @@ export default function GamesPage() {
     <div className="min-h-screen bg-black">
       <Header onLogout={handleLogout} currentPage="games" />
       <div className="flex">
+        <Navigation />
         <main className="flex-1">
-          <GameLobby />
+          <div className="p-6">
+            {/* Back Button */}
+            <div className="mb-6">
+              <Link href="/dashboard" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Dashboard
+              </Link>
+            </div>
+            <GameLobby />
+          </div>
         </main>
       </div>
     </div>
