@@ -21,44 +21,75 @@ export default function WalletPage() {
   };
 
   const handleDeposit = async (amount: number, phone: string) => {
-    // Simulate deposit processing
-    console.log('Processing deposit:', amount, phone);
+    try {
+      const response = await fetch('/api/wallet/deposit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${useAuthStore.getState().token}`,
+        },
+        body: JSON.stringify({
+          amount,
+          phone,
+        }),
+      });
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
+      const result = await response.json();
 
-    // Update wallet state (in real app, this would be updated by backend/websocket)
-    const currentBalance = useWalletStore.getState().balance;
-    setBalance(currentBalance + amount);
-    addTransaction({
-      id: `deposit_${Date.now()}`,
-      type: 'deposit',
-      amount,
-      status: 'pending',
-      description: `Mobile Money deposit from ${phone}`,
-      created_at: new Date().toISOString()
-    });
+      if (result.success) {
+        // In a real implementation, you'd refresh wallet data
+        // For now, add transaction locally
+        addTransaction({
+          id: result.data?.transactionId || `deposit_${Date.now()}`,
+          type: 'deposit',
+          amount,
+          status: 'pending',
+          description: `Mobile Money deposit to ${phone}`,
+          created_at: new Date().toISOString()
+        });
+      } else {
+        throw new Error(result.error || 'Deposit failed');
+      }
+    } catch (error) {
+      console.error('Deposit error:', error);
+      throw error;
+    }
   };
 
   const handleWithdraw = async (amount: number, phone: string) => {
-    // Simulate withdrawal processing
-    console.log('Processing withdrawal:', amount, phone);
+    try {
+      const response = await fetch('/api/wallet/withdraw', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${useAuthStore.getState().token}`,
+        },
+        body: JSON.stringify({
+          amount,
+          phone,
+        }),
+      });
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
+      const result = await response.json();
 
-    // Update wallet state (in real app, this would be updated by backend/websocket)
-    const currentBalance = useWalletStore.getState().balance;
-    setBalance(currentBalance - amount);
-    addTransaction({
-      id: `withdraw_${Date.now()}`,
-      type: 'withdrawal',
-      amount,
-      status: 'completed',
-      description: `Mobile Money withdrawal to ${phone}`,
-      created_at: new Date().toISOString(),
-      completed_at: new Date().toISOString()
-    });
+      if (result.success) {
+        // In a real implementation, you'd refresh wallet data
+        // For now, add transaction locally
+        addTransaction({
+          id: result.data?.transactionId || `withdraw_${Date.now()}`,
+          type: 'withdrawal',
+          amount,
+          status: 'pending',
+          description: `Mobile Money withdrawal to ${phone}`,
+          created_at: new Date().toISOString()
+        });
+      } else {
+        throw new Error(result.error || 'Withdrawal failed');
+      }
+    } catch (error) {
+      console.error('Withdrawal error:', error);
+      throw error;
+    }
   };
 
   return (
