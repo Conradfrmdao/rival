@@ -10,6 +10,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Card from '@/components/ui/Card';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import Link from 'next/link';
 import { sendOTP, verifyOTP } from '@/actions/auth';
 import { useAuthStore } from '@/store/authStore';
 import { formatPhoneNumber, validatePhoneNumber } from '@/lib/utils';
