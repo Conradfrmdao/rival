@@ -98,6 +98,9 @@ export default function StakeHomePage() {
           </Link>
 
           <div className="flex items-center space-x-6">
+            <Link href="/login" className="text-gray-300 hover:text-white transition-colors">
+              Login
+            </Link>
             <Link href="#games" className="text-gray-300 hover:text-white transition-colors">
               Games
             </Link>
