@@ -180,6 +180,14 @@ export default function RegisterPage() {
       <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
           <Card variant="glass" className="p-8 backdrop-blur-xl">
+            {/* Back Button */}
+            <div className="mb-6">
+              <Link href="/" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Link>
+            </div>
+
             <div className="text-center mb-8">
               <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
                 Rival
