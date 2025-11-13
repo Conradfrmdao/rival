@@ -113,9 +113,9 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Game Selection */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                Select Game
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mb-6">
+              <h2 className="text-2xl font-bold text-white mb-6">
+                Select Your Battle
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
