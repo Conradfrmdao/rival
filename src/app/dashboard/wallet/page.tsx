@@ -60,10 +60,9 @@ export default function WalletPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header onLogout={handleLogout} />
+    <div className="min-h-screen bg-black">
+      <Header onLogout={handleLogout} currentPage="wallet" />
       <div className="flex">
-        <Navigation />
         <main className="flex-1">
           <div className="p-6">
             <div className="mb-6">
