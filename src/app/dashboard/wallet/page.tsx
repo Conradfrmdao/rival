@@ -65,13 +65,21 @@ export default function WalletPage() {
     <div className="min-h-screen bg-black">
       <Header onLogout={handleLogout} currentPage="wallet" />
       <div className="flex">
+        <Navigation />
         <main className="flex-1">
           <div className="p-6">
+            {/* Back Button */}
             <div className="mb-6">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              <Link href="/dashboard" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Dashboard
+              </Link>
+            </div>
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold text-white mb-2">
                 Wallet
               </h1>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-400">
                 Manage your deposits, withdrawals, and transaction history
               </p>
             </div>
