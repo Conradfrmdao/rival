@@ -5,11 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Phone, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { Phone, Lock, ArrowRight, ArrowLeft } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Card from '@/components/ui/Card';
-import { sendOTP, verifyOTP } from '@/actions/auth';
 import { useAuthStore } from '@/store/authStore';
 import { formatPhoneNumber, validatePhoneNumber } from '@/lib/utils';
 import Link from 'next/link';
@@ -22,17 +21,10 @@ const loginSchema = z.object({
     .refine((phone) => validatePhoneNumber(phone), {
       message: 'Please enter a valid Uganda phone number',
     }),
-});
-
-const otpSchema = z.object({
-  otp: z
-    .string()
-    .length(6, 'OTP must be exactly 6 digits')
-    .regex(/^\d+$/, 'OTP must contain only numbers'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
-type OTPFormData = z.infer<typeof otpSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
