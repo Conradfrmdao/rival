@@ -133,19 +133,10 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
                       }`}
                     >
                       <div className="text-4xl mb-3 text-center">
-                        {game.name === 'Tic Tac Toe' ? (
-                          <GameImage
-                            gameType={game.name}
-                            size="md"
-                            className={selectedGame === game.type ? 'scale-110' : ''}
-                          />
-                        ) : (
-                          <>
-                            {game.type === 'rock_paper_scissors' && '✊'}
-                            {game.type === 'ball_in_cup' && '🏆'}
-                            {game.type === 'penalty_take' && '⚽'}
-                          </>
-                        )}
+                        {game.type === 'rock_paper_scissors' && '✊'}
+                        {game.type === 'ball_in_cup' && '🏆'}
+                        {game.type === 'tic_tac_toe' && '⭕'}
+                        {game.type === 'penalty_take' && '⚽'}
                       </div>
                       <h3 className="font-bold text-lg text-white mb-2">
                         {game.name}
