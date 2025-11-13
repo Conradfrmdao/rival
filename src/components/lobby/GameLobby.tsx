@@ -137,10 +137,10 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
                       {game.type === 'tic_tac_toe' && '⭕'}
                       {game.type === 'penalty_take' && '⚽'}
                     </div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    <h3 className="font-bold text-lg text-white mb-1">
                       {game.name}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-300">
                       {game.description}
                     </p>
                   </motion.button>
