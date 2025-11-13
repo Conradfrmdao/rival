@@ -74,7 +74,7 @@ export default function StakeHomePage() {
             </div>
           </Link>
 
-          <div className="flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-6">
             <Link href="/login" className="text-gray-300 hover:text-white transition-colors">
               Login
             </Link>
@@ -90,6 +90,13 @@ export default function StakeHomePage() {
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <Button variant="glass" size="sm" className="text-white">
+              Menu
+            </Button>
           </div>
         </div>
       </nav>
