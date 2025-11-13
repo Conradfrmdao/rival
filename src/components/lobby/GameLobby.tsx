@@ -132,12 +132,20 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
                           : 'border-white/20 bg-white/5 hover:border-purple-500/50 hover:bg-white/10 text-white'
                       }`}
                     >
-                      <div className="flex justify-center mb-3">
-                        <GameImage
-                          gameType={game.name}
-                          size="md"
-                          className={selectedGame === game.type ? 'scale-110' : ''}
-                        />
+                      <div className="text-4xl mb-3 text-center">
+                        {game.name === 'Tic Tac Toe' ? (
+                          <GameImage
+                            gameType={game.name}
+                            size="md"
+                            className={selectedGame === game.type ? 'scale-110' : ''}
+                          />
+                        ) : (
+                          <>
+                            {game.type === 'rock_paper_scissors' && '✊'}
+                            {game.type === 'ball_in_cup' && '🏆'}
+                            {game.type === 'penalty_take' && '⚽'}
+                          </>
+                        )}
                       </div>
                       <h3 className="font-bold text-lg text-white mb-2">
                         {game.name}
