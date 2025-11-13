@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Navigation from '@/components/layout/Navigation';
 import GameLobby from '@/components/lobby/GameLobby';
 import { useAuthStore } from '@/store/authStore';
+import Link from 'next/link';
 
 export default function GamesPage() {
   const router = useRouter();
