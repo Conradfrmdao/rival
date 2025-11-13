@@ -157,7 +157,7 @@ export default function RegisterPage() {
   };
 
   const handleBack = () => {
-    setStep('phone');
+    setStep('registration');
     setOtpSent(false);
     setTimeLeft(0);
     setError(null);
