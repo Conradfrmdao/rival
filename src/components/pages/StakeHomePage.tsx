@@ -296,7 +296,7 @@ export default function StakeHomePage() {
               How to Start <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Winning</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Get started in 3 simple steps and join thousands of winners
+              Get started in 3 simple steps and join thousands of Ugandan winners
             </p>
           </div>
 
