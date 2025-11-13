@@ -92,13 +92,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate tokens
-    const tokens = generateTokens(user.id);
+    const tokens = generateTokens(userTyped.id);
 
     // Update last login
     await supabase
       .from('users')
       .update({ last_login: new Date().toISOString() })
-      .eq('id', user.id);
+      .eq('id', userTyped.id);
 
     const response = {
       success: true,
