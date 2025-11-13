@@ -50,10 +50,12 @@ export default function LoginPage() {
       // Mock successful login for demo
       const mockUser = {
         id: '1',
+        username: 'demo_user',
         firstName: 'Demo',
         lastName: 'User',
         phone: formattedPhone,
-        email: 'demo@example.com'
+        email: 'demo@example.com',
+        created_at: new Date().toISOString()
       };
 
       const mockToken = 'mock-jwt-token';
