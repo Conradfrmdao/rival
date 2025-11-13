@@ -76,6 +76,7 @@ export async function POST(request: NextRequest) {
     const validatedData = registerSchema.parse(body);
 
     // Check if user already exists
+    const supabase = getSupabaseClient();
     const { data: existingUser } = await supabase
       .from('users')
       .select('id')
