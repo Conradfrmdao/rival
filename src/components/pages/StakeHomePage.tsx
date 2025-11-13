@@ -204,8 +204,8 @@ export default function StakeHomePage() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-t-xl" />
                     <div className="relative p-6">
-                      <div className="text-5xl mb-4 text-center group-hover:scale-125 transition-transform duration-300">
-                        {game.icon}
+                      <div className="flex justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <GameImage gameType={game.name} size="lg" />
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2 text-center">{game.name}</h3>
                       <div className="flex justify-center gap-2 mb-4">
