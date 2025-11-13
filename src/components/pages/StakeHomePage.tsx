@@ -8,13 +8,7 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 
 export default function StakeHomePage() {
-  const stats = [
-    { label: "Active Players", value: "10K+", trend: "+25%" },
-    { label: "Games Played", value: "50K+", trend: "+40%" },
-    { label: "Daily Wins", value: "2.5M", trend: "+15%" },
-    { label: "Uptime", value: "99.9%", trend: "Stable" }
-  ];
-
+  
   const features = [
     {
       icon: Zap,
