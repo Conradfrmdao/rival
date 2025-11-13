@@ -24,47 +24,62 @@ export default function Dashboard() {
       return;
     }
 
-    // Set default available games
-    const defaultGames = [
-      {
-        id: '1',
-        name: 'Rock Paper Scissors',
-        type: 'rock_paper_scissors',
-        description: 'Classic hand game',
-        min_stake: 500,
-        max_stake: 50000,
-        icon_url: '/games/rps.png'
-      },
-      {
-        id: '2',
-        name: 'Ball in Cup',
-        type: 'ball_in_cup',
-        description: 'Find the hidden ball',
-        min_stake: 500,
-        max_stake: 50000,
-        icon_url: '/games/ball-in-cup.png'
-      },
-      {
-        id: '3',
-        name: 'Tic Tac Toe',
-        type: 'tic_tac_toe',
-        description: 'Three in a row wins',
-        min_stake: 500,
-        max_stake: 50000,
-        icon_url: '/games/tic-tac-toe.png'
-      },
-      {
-        id: '4',
-        name: 'Penalty Take',
-        type: 'penalty_take',
-        description: 'Score against the keeper',
-        min_stake: 500,
-        max_stake: 50000,
-        icon_url: '/games/penalty.png'
-      }
-    ];
+    // Fetch available games from backend API
+    const fetchGames = async () => {
+      try {
+        const response = await fetch('/api/games');
+        const result = await response.json();
 
-    setAvailableGames(defaultGames);
+        if (result.success && result.data) {
+          setAvailableGames(result.data);
+        } else {
+          // Fallback to default games if API fails
+          const defaultGames = [
+            {
+              id: '1',
+              name: 'Rock Paper Scissors',
+              type: 'rock_paper_scissors',
+              description: 'Classic hand game',
+              min_stake: 500,
+              max_stake: 50000,
+              icon_url: '/games/rps.png'
+            },
+            {
+              id: '2',
+              name: 'Ball in Cup',
+              type: 'ball_in_cup',
+              description: 'Find the hidden ball',
+              min_stake: 500,
+              max_stake: 50000,
+              icon_url: '/games/ball-in-cup.png'
+            },
+            {
+              id: '3',
+              name: 'Tic Tac Toe',
+              type: 'tic_tac_toe',
+              description: 'Three in a row wins',
+              min_stake: 500,
+              max_stake: 50000,
+              icon_url: '/games/tic-tac-toe.png'
+            },
+            {
+              id: '4',
+              name: 'Penalty Take',
+              type: 'penalty_take',
+              description: 'Score against the keeper',
+              min_stake: 500,
+              max_stake: 50000,
+              icon_url: '/games/penalty.png'
+            }
+          ];
+          setAvailableGames(defaultGames);
+        }
+      } catch (error) {
+        console.error('Failed to fetch games:', error);
+      }
+    };
+
+    fetchGames();
   }, [isAuthenticated, router, setAvailableGames]);
 
   const handleLogout = () => {
