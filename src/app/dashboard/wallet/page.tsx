@@ -2,11 +2,13 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Navigation from '@/components/layout/Navigation';
 import WalletDashboard from '@/components/wallet/WalletDashboard';
 import { useAuthStore } from '@/store/authStore';
 import { useWalletStore } from '@/store/walletStore';
+import Link from 'next/link';
 
 export default function WalletPage() {
   const router = useRouter();
