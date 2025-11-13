@@ -249,6 +249,26 @@ export default function RegisterPage() {
                   helperText="Enter your Uganda mobile number"
                 />
 
+                <Input
+                  {...registrationForm.register('password')}
+                  label="Password"
+                  type="password"
+                  placeholder="Create a strong password"
+                  icon={<Lock className="w-4 h-4" />}
+                  error={registrationForm.formState.errors.password?.message}
+                  helperText="Must contain uppercase, lowercase, and number"
+                />
+
+                <Input
+                  {...registrationForm.register('confirmPassword')}
+                  label="Confirm Password"
+                  type="password"
+                  placeholder="Re-enter your password"
+                  icon={<Lock className="w-4 h-4" />}
+                  error={registrationForm.formState.errors.confirmPassword?.message}
+                  helperText="Passwords must match"
+                />
+
                 <div className="space-y-4">
                   <label className="flex items-start gap-3 text-sm">
                     <input
