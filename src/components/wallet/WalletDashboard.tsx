@@ -46,7 +46,9 @@ export default function WalletDashboard({ onDeposit, onWithdraw }: WalletDashboa
       await onWithdraw(amount, phone);
       setShowWithdrawModal(false);
     } catch (error) {
-      console.error('Withdrawal failed:', error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Withdrawal failed:', error);
+      }
     } finally {
       setIsLoading(false);
     }
