@@ -41,7 +41,8 @@ export default function WalletPage() {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Update wallet state (in real app, this would be updated by backend/websocket)
-    setBalance((prev: number) => prev - amount);
+    const currentBalance = useWalletStore.getState().balance;
+    setBalance(currentBalance - amount);
     addTransaction({
       id: `withdraw_${Date.now()}`,
       type: 'withdrawal',
