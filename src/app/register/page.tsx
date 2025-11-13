@@ -86,13 +86,14 @@ export default function RegisterPage() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleSendOTP = async (data: PhoneFormData) => {
+  const handleRegistration = async (data: RegistrationFormData) => {
     setIsLoading(true);
     setError(null);
 
     try {
       const formattedPhone = formatPhoneNumber(data.phone);
       setPhoneNumber(formattedPhone);
+      setRegistrationData(data);
 
       const result = await sendOTP(formattedPhone);
 
