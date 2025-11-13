@@ -245,53 +245,7 @@ export default function StakeHomePage() {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section className="max-w-7xl mx-auto px-6 py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              What <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Winners</span> Say
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Real Ugandan players, real wins, real money
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card variant="glass" className="p-6">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center text-2xl">
-                      {testimonial.avatar}
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-bold text-white">{testimonial.name}</h3>
-                        <Crown className="w-4 h-4 text-yellow-500" />
-                      </div>
-                      <p className="text-sm text-gray-400">{testimonial.username}</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-300 mb-4 text-sm leading-relaxed">
-                    "{testimonial.content}"
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <Badge variant="success" className="text-xs">
-                      Total Winnings: {testimonial.winnings}
-                    </Badge>
-                    <Star className="w-4 h-4 text-yellow-500" />
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
+  
         {/* How It Works */}
         <section id="how-it-works" className="max-w-7xl mx-auto px-6 py-20">
           <div className="text-center mb-16">
