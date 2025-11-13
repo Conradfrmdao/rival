@@ -5,15 +5,21 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Phone } from 'lucide-react';
+import { Phone, User, CreditCard, Calendar } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import Card from '@/components/ui/Card';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { sendOTP, verifyOTP } from '@/actions/auth';
 import { useAuthStore } from '@/store/authStore';
 import { formatPhoneNumber, validatePhoneNumber } from '@/lib/utils';
 
-const phoneSchema = z.object({
+const registrationSchema = z.object({
+  firstName: z.string().min(2, 'First name must be at least 2 characters'),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters'),
+  nin: z.string()
+    .length(14, 'National ID must be exactly 14 characters')
+    .regex(/^[A-Z0-9]+$/, 'National ID must contain only uppercase letters and numbers'),
   phone: z
     .string()
     .min(10, 'Phone number must be at least 10 digits')
@@ -21,6 +27,18 @@ const phoneSchema = z.object({
     .refine((phone) => validatePhoneNumber(phone), {
       message: 'Please enter a valid Uganda phone number',
     }),
+  dateOfBirth: z.string()
+    .refine((date) => {
+      const birthDate = new Date(date);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      const dayDiff = today.getDate() - birthDate.getDate();
+
+      const actualAge = monthDiff < 0 || (monthDiff === 0 && dayDiff < 0) ? age - 1 : age;
+      return actualAge >= 18;
+    }, 'You must be at least 18 years old to register'),
+  acceptTerms: z.boolean().refine((val) => val === true, 'You must accept the terms and conditions'),
 });
 
 const otpSchema = z.object({
@@ -30,7 +48,7 @@ const otpSchema = z.object({
     .regex(/^\d+$/, 'OTP must contain only numbers'),
 });
 
-type PhoneFormData = z.infer<typeof phoneSchema>;
+type RegistrationFormData = z.infer<typeof registrationSchema>;
 type OTPFormData = z.infer<typeof otpSchema>;
 
 export default function RegisterPage() {
