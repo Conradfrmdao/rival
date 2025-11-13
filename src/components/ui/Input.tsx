@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  error?: string;
+  error?: string | null;
   icon?: React.ReactNode;
   containerClassName?: string;
   helperText?: string;
