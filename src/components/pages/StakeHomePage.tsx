@@ -41,7 +41,7 @@ export default function StakeHomePage() {
     { name: 'Penalty Take', icon: '⚽', difficulty: 'Hard', players: '1v1', minStake: 500 },
     { name: 'Ball in Cup', icon: '🏆', difficulty: 'Medium', players: '1v1', minStake: 500 },
     { name: 'Rock Paper Scissors', icon: '✊', difficulty: 'Easy', players: '1v1', minStake: 500 },
-    { name: 'Tic Tac Toe', difficulty: 'Easy', players: '1v1', minStake: 500 }
+    { name: 'Tic Tac Toe', icon: '⭕', difficulty: 'Easy', players: '1v1', minStake: 500 }
   ];
 
   
