@@ -14,8 +14,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rival - P2P Gaming Platform",
-  description: "Real-money peer-to-peer gaming platform with skill-based games",
+  title: "Rival - Uganda's P2P Gaming Platform",
+  description: "Challenge real players in skill-based games and win real money. Safe, secure, and fair gaming platform for Uganda.",
+  keywords: "P2P gaming, Uganda, mobile money, real money games, skill games",
+  authors: [{ name: "Naughty Code Systems" }],
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
+  themeColor: "#000000",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "Rival - Uganda's P2P Gaming Platform",
+    description: "Challenge real players in skill-based games and win real money",
+    siteName: "Rival",
+    locale: "en_UG",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
