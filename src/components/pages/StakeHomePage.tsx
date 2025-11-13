@@ -249,7 +249,7 @@ export default function StakeHomePage() {
               What <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Winners</span> Say
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Real players, real wins, real money
+              Real Ugandan players, real wins, real money
             </p>
           </div>
 
