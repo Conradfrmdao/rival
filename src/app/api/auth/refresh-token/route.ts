@@ -22,13 +22,13 @@ const generateTokens = (userId: string) => {
   const token = jwt.sign(
     { userId, type: 'access' },
     JWT_SECRET,
-    { expiresIn: JWT_EXPIRES_IN }
+    { expiresIn: JWT_EXPIRES_IN } as jwt.SignOptions
   );
 
   const refreshToken = jwt.sign(
     { userId, type: 'refresh' },
     JWT_SECRET,
-    { expiresIn: JWT_REFRESH_EXPIRES_IN }
+    { expiresIn: JWT_REFRESH_EXPIRES_IN } as jwt.SignOptions
   );
 
   return {
