@@ -159,32 +159,6 @@ export default function StakeHomePage() {
                 </Link>
               </div>
             </motion.div>
-
-            {/* Live Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
-            >
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  <Card variant="glass" className="text-center backdrop-blur-sm">
-                    <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-sm text-gray-400 mb-2">{stat.label}</div>
-                    <div className="text-xs text-green-400 flex items-center justify-center">
-                      <TrendingUp className="w-3 h-3 mr-1" />
-                      {stat.trend}
-                    </div>
-                  </Card>
-                </motion.div>
-              ))}
-            </motion.div>
           </div>
         </section>
 
