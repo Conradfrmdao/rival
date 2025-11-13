@@ -77,6 +77,14 @@ export default function LoginPage() {
       <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
           <Card variant="glass" className="p-8 backdrop-blur-xl">
+            {/* Back Button */}
+            <div className="mb-6">
+              <Link href="/" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Link>
+            </div>
+
             <div className="text-center mb-8">
               <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
                 Welcome Back
@@ -87,7 +95,7 @@ export default function LoginPage() {
             </div>
 
             <h3 className="text-xl font-semibold text-white mb-6 text-center">
-              {step === 'login' ? 'Enter Your Phone Number' : 'Verify Your Phone'}
+              Sign In
             </h3>
 
             {error && (
@@ -96,96 +104,53 @@ export default function LoginPage() {
               </div>
             )}
 
-            {step === 'login' ? (
-              <form onSubmit={loginForm.handleSubmit(handleSendOTP)} className="space-y-6">
-                <Input
-                  {...loginForm.register('phone')}
-                  label="Phone Number"
-                  type="tel"
-                  placeholder="0781234567"
-                  icon={<Phone className="w-4 h-4" />}
-                  error={loginForm.formState.errors.phone?.message}
-                  helperText="Enter your Uganda mobile number"
-                />
+            <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-6">
+              <Input
+                {...loginForm.register('phone')}
+                label="Phone Number"
+                type="tel"
+                placeholder="0781234567"
+                icon={<Phone className="w-4 h-4" />}
+                error={loginForm.formState.errors.phone?.message}
+                helperText="Enter your Uganda mobile number"
+              />
 
-                <Button
-                  type="submit"
-                  variant="gradient"
-                  fullWidth
-                  loading={isLoading}
-                  disabled={!loginForm.formState.isValid || isLoading}
-                  size="lg"
-                >
-                  Send OTP
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+              <Input
+                {...loginForm.register('password')}
+                label="Password"
+                type="password"
+                placeholder="Enter your password"
+                icon={<Lock className="w-4 h-4" />}
+                error={loginForm.formState.errors.password?.message}
+                helperText="Enter your account password"
+              />
 
-                <div className="text-center">
-                  <p className="text-gray-400 text-sm">
-                    Don't have an account?{' '}
-                    <Link href="/register" className="text-purple-400 hover:text-purple-300 font-medium">
-                      Sign up
-                    </Link>
-                  </p>
-                </div>
-              </form>
-            ) : (
-              <form onSubmit={otpForm.handleSubmit(handleVerifyOTP)} className="space-y-6">
-                <div className="text-center mb-6">
-                  <p className="text-gray-400 mb-2">
-                    We sent a 6-digit code to
-                  </p>
-                  <p className="font-semibold text-white text-lg">
-                    {phoneNumber}
-                  </p>
-                </div>
+              <Button
+                type="submit"
+                variant="gradient"
+                fullWidth
+                loading={isLoading}
+                disabled={!loginForm.formState.isValid || isLoading}
+                size="lg"
+              >
+                Sign In
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
 
-                <Input
-                  {...otpForm.register('otp')}
-                  label="Verification Code"
-                  type="text"
-                  placeholder="123456"
-                  maxLength={6}
-                  error={otpForm.formState.errors.otp?.message}
-                  helperText="Enter the 6-digit code sent to your phone"
-                />
-
-                <div className="flex gap-3">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleBack}
-                    disabled={isLoading}
-                    className="flex-1"
-                  >
-                    Back
-                  </Button>
-
-                  <Button
-                    type="submit"
-                    variant="gradient"
-                    loading={isLoading}
-                    disabled={!otpForm.formState.isValid || isLoading}
-                    className="flex-1"
-                  >
-                    Sign In
-                  </Button>
-                </div>
-
-                <div className="text-center">
-                  <button
-                    type="button"
-                    onClick={handleResendOTP}
-                    disabled={timeLeft > 0 || isLoading}
-                    className="text-sm text-purple-400 hover:text-purple-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
-                  >
-                    {timeLeft > 0
-                      ? `Resend code in ${formatTime(timeLeft)}`
-                      : 'Resend code'}
-                  </button>
-                </div>
-              </form>
-            )}
+              <div className="text-center">
+                <p className="text-gray-400 text-sm mb-2">
+                  Don't have an account?{' '}
+                  <Link href="/register" className="text-purple-400 hover:text-purple-300 font-medium">
+                    Sign up
+                  </Link>
+                </p>
+                <p className="text-gray-400 text-sm">
+                  <Link href="/forgot-password" className="text-purple-400 hover:text-purple-300 font-medium">
+                    Forgot password?
+                  </Link>
+                </p>
+              </div>
+            </form>
 
             <div className="mt-8 pt-6 border-t border-white/10 text-center">
               <p className="text-xs text-gray-500">
