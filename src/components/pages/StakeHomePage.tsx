@@ -43,30 +43,7 @@ export default function StakeHomePage() {
     { name: 'Tic Tac Toe', icon: '⭕', difficulty: 'Easy', players: '1v1', minStake: 500 }
   ];
 
-  const testimonials = [
-    {
-      name: "Alex K.",
-      username: "@alex_winner",
-      content: "Won UGX 50,000 in my first week! The games are fair and payouts are instant.",
-      winnings: "UGX 125,000",
-      avatar: "👤"
-    },
-    {
-      name: "Sarah M.",
-      username: "@sarah_pro",
-      content: "Best P2P gaming platform in Uganda. The competition is real and the rewards are amazing!",
-      winnings: "UGX 89,000",
-      avatar: "👩"
-    },
-    {
-      name: "John D.",
-      username: "@john_champion",
-      content: "Love the variety of games and the mobile money integration is seamless.",
-      winnings: "UGX 200,000",
-      avatar: "👨"
-    }
-  ];
-
+  
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Animated Background */}
