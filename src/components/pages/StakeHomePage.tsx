@@ -357,7 +357,7 @@ export default function StakeHomePage() {
               >
                 <Badge variant="glow" className="mb-6">
                   <Star className="w-4 h-4 mr-2" />
-                  Join 10,000+ Winners
+                  Join Uganda's Winners
                 </Badge>
                 <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
                   Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Dominate</span>?
