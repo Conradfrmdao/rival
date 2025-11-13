@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
     const response = {
       success: true,
       data: {
-        user: formatUserResponse(user),
+        user: formatUserResponse(userTyped),
         tokens
       }
     };
