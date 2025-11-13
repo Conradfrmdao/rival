@@ -38,9 +38,9 @@ export default function StakeHomePage() {
   ];
 
   const games = [
-    { name: 'Penalty Take', difficulty: 'Hard', players: '1v1', minStake: 500 },
-    { name: 'Ball in Cup', difficulty: 'Medium', players: '1v1', minStake: 500 },
-    { name: 'Rock Paper Scissors', difficulty: 'Easy', players: '1v1', minStake: 500 },
+    { name: 'Penalty Take', icon: '⚽', difficulty: 'Hard', players: '1v1', minStake: 500 },
+    { name: 'Ball in Cup', icon: '🏆', difficulty: 'Medium', players: '1v1', minStake: 500 },
+    { name: 'Rock Paper Scissors', icon: '✊', difficulty: 'Easy', players: '1v1', minStake: 500 },
     { name: 'Tic Tac Toe', difficulty: 'Easy', players: '1v1', minStake: 500 }
   ];
 
