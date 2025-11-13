@@ -73,9 +73,16 @@ export async function POST(request: NextRequest) {
       .eq('is_active', true)
       .single();
 
+    if (error || !user) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid phone number or password' },
+        { status: 401 }
+      );
+    }
+
     const userTyped = user as User;
 
-    if (error || !userTyped || !userTyped.password_hash) {
+    if (!userTyped.password_hash) {
       return NextResponse.json(
         { success: false, error: 'Invalid phone number or password' },
         { status: 401 }
