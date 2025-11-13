@@ -11,14 +11,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading = false, fullWidth = false, children, disabled, ...props }, ref) => {
-    const baseStyles = 'font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2';
+    const baseStyles = 'font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 relative overflow-hidden';
 
     const variants = {
-      primary: 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500',
-      secondary: 'bg-gray-600 hover:bg-gray-700 text-white focus:ring-gray-500',
-      outline: 'border-2 border-gray-300 hover:border-gray-400 text-gray-700 focus:ring-blue-500',
-      ghost: 'hover:bg-gray-100 text-gray-700 focus:ring-blue-500 dark:hover:bg-gray-800 dark:text-gray-300',
-      danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500'
+      primary: 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white focus:ring-purple-500 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40',
+      secondary: 'bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-white focus:ring-gray-500 shadow-lg shadow-gray-500/25',
+      outline: 'border-2 border-purple-500/50 hover:border-purple-500 text-purple-300 focus:ring-purple-500 hover:bg-purple-500/10',
+      ghost: 'hover:bg-purple-500/10 text-purple-300 focus:ring-purple-500',
+      danger: 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white focus:ring-red-500 shadow-lg shadow-red-500/25',
+      gradient: 'bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:from-purple-700 hover:via-pink-600 hover:to-red-600 text-white focus:ring-purple-500 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40',
+      glass: 'bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white focus:ring-purple-500 shadow-lg hover:shadow-xl'
     };
 
     const sizes = {
