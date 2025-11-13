@@ -335,7 +335,7 @@ export default function RegisterPage() {
                   disabled={!registrationForm.formState.isValid || isLoading}
                   size="lg"
                 >
-                  Create Account & Verify Phone
+                  Create Account
                 </Button>
               </form>
             ) : (
