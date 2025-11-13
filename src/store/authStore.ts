@@ -5,6 +5,9 @@ interface User {
   id: string;
   phone: string;
   username: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
   avatar_url?: string;
   created_at: string;
   last_login?: string;
