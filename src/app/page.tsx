@@ -1,6 +1,4 @@
-import Link from "next/link";
-import { ArrowRight, Trophy, Users, Shield, Zap } from "lucide-react";
-import Button from "@/components/ui/Button";
+import StakeHomePage from "@/components/pages/StakeHomePage";
 
 export default function Home() {
   return (
