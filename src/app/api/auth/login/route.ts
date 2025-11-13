@@ -104,7 +104,8 @@ export async function POST(request: NextRequest) {
     const tokens = generateTokens(user.id);
 
     // Update last login
-    await supabase
+    const supabaseUpdate = getSupabaseClient();
+    await supabaseUpdate
       .from('users')
       .update({ last_login: new Date().toISOString() })
       .eq('id', user.id);
