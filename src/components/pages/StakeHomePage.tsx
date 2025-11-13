@@ -363,8 +363,8 @@ export default function StakeHomePage() {
                   Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Dominate</span>?
                 </h2>
                 <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                  Thousands of players are winning right now. Your competition is waiting.
-                  Your victory is one battle away.
+                  Join thousands of Ugandan players winning real money daily.
+                  Your competition is waiting. Your victory is one battle away.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/register">
