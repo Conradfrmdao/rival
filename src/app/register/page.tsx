@@ -100,20 +100,35 @@ export default function RegisterPage() {
 
     try {
       const formattedPhone = formatPhoneNumber(data.phone);
-      setPhoneNumber(formattedPhone);
-      setRegistrationData(data);
 
-      const result = await sendOTP(formattedPhone);
+      // Call backend API for registration
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: formattedPhone,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          nin: data.nin,
+          dateOfBirth: data.dateOfBirth,
+          password: data.password,
+        }),
+      });
 
-      if (result.success) {
-        setOtpSent(true);
-        setStep('otp');
-        setTimeLeft(300); // 5 minutes
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        // Registration successful - login the user
+        login(result.data.user, result.data.tokens.token);
+        router.push('/dashboard');
       } else {
-        setError(result.error || 'Failed to send OTP. Please try again.');
+        setError(result.error || 'Registration failed. Please try again.');
       }
+
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
+      setError('Network error. Please check your connection and try again.');
     } finally {
       setIsLoading(false);
     }
