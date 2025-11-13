@@ -117,7 +117,7 @@ export default function StakeHomePage() {
               </Badge>
               <div className="flex items-center justify-center gap-4 mb-6">
                 <Flame className="w-8 h-8 text-orange-500 animate-pulse" />
-                <h1 className="text-5xl sm:text-7xl font-black">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">
                     Challenge. Compete.
                   </span>
