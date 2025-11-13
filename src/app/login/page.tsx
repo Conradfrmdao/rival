@@ -38,92 +38,34 @@ export default function LoginPage() {
     mode: 'onChange',
   });
 
-  React.useEffect(() => {
-    if (timeLeft > 0) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [timeLeft]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const handleSendOTP = async (data: LoginFormData) => {
+  const handleLogin = async (data: LoginFormData) => {
     setIsLoading(true);
     setError(null);
 
     try {
+      // Simulate login API call
+      // In real implementation, this would call your backend API
       const formattedPhone = formatPhoneNumber(data.phone);
-      setPhoneNumber(formattedPhone);
 
-      const result = await sendOTP(formattedPhone);
+      // Mock successful login for demo
+      const mockUser = {
+        id: '1',
+        firstName: 'Demo',
+        lastName: 'User',
+        phone: formattedPhone,
+        email: 'demo@example.com'
+      };
 
-      if (result.success) {
-        setStep('otp');
-        setTimeLeft(300); // 5 minutes
-      } else {
-        setError(result.error || 'Failed to send OTP. Please try again.');
-      }
+      const mockToken = 'mock-jwt-token';
+
+      login(mockUser, mockToken);
+      router.push('/dashboard');
+
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
+      setError('Invalid phone number or password. Please try again.');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleVerifyOTP = async (data: OTPFormData) => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const result = await verifyOTP(phoneNumber, data.otp);
-
-      if (result.success && result.data) {
-        // Login the user
-        login(result.data.user, result.data.token);
-
-        // Redirect to dashboard
-        router.push('/dashboard');
-      } else {
-        setError(result.error || 'Invalid OTP. Please try again.');
-      }
-    } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleResendOTP = async () => {
-    if (timeLeft > 0) return;
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const result = await sendOTP(phoneNumber);
-
-      if (result.success) {
-        setTimeLeft(300); // Reset timer
-        otpForm.reset();
-      } else {
-        setError(result.error || 'Failed to resend OTP. Please try again.');
-      }
-    } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleBack = () => {
-    setStep('login');
-    setTimeLeft(0);
-    setError(null);
-    otpForm.reset();
   };
 
   return (
