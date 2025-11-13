@@ -53,17 +53,18 @@ type OTPFormData = z.infer<typeof otpSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [step, setStep] = useState<'phone' | 'otp'>('phone');
+  const [step, setStep] = useState<'registration' | 'otp'>('registration');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [otpSent, setOtpSent] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [registrationData, setRegistrationData] = useState<RegistrationFormData | null>(null);
 
   const { login } = useAuthStore();
 
-  const phoneForm = useForm<PhoneFormData>({
-    resolver: zodResolver(phoneSchema),
+  const registrationForm = useForm<RegistrationFormData>({
+    resolver: zodResolver(registrationSchema),
     mode: 'onChange',
   });
 
