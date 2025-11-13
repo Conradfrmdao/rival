@@ -110,22 +110,16 @@ const GameImage: React.FC<GameImageProps> = ({ gameType, size = 'md', className 
           <div className={`${sizeClasses[size]} ${className} relative`}>
             <div className="w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl relative overflow-hidden shadow-lg">
               {/* Game board */}
-              <div className="absolute inset-2 grid grid-cols-3 gap-1">
-                {/* Grid lines */}
-                <div className="col-span-3 h-px bg-white/50"></div>
-                <div className="col-span-3 h-px bg-white/50"></div>
-                <div className="row-span-3 w-px bg-white/50 absolute top-0 left-1/3 h-full"></div>
-                <div className="row-span-3 w-px bg-white/50 absolute top-0 right-1/3 h-full"></div>
-
+              <div className="absolute inset-2">
                 {/* X */}
-                <div className="flex items-center justify-center text-white font-bold text-xs">✕</div>
-                <div className="flex items-center justify-center"></div>
-                <div className="flex items-center justify-center text-white font-bold text-xs">○</div>
-                <div className="flex items-center justify-center"></div>
-                <div className="flex items-center justify-center text-white font-bold text-xs">✕</div>
-                <div className="flex items-center justify-center text-white font-bold text-xs">○</div>
-                <div className="flex items-center justify-center"></div>
-                <div className="flex items-center justify-center"></div>
+                <div className="absolute top-2 left-2 text-white font-bold text-xs">✕</div>
+                <div className="absolute top-2 right-2 text-white font-bold text-xs">○</div>
+                <div className="absolute bottom-2 left-2 text-white font-bold text-xs">✕</div>
+                <div className="absolute bottom-2 right-2 text-white font-bold text-xs">○</div>
+
+                {/* Grid lines */}
+                <div className="absolute top-1/2 left-0 right-0 h-px bg-white/50"></div>
+                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/50"></div>
               </div>
 
               {/* Winning line animation */}
