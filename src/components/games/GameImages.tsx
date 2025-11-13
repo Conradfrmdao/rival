@@ -133,7 +133,7 @@ const GameImage: React.FC<GameImageProps> = ({ gameType, size = 'md', className 
                 <div className="w-8 h-px bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
               </div>
 
-              {/* Sparkle effects */
+              {/* Sparkle effects */}
               <div className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
             </div>
           </div>
