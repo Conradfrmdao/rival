@@ -169,7 +169,7 @@ export default function StakeHomePage() {
               Why Players Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Rival</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Built for competitive gamers who demand fairness, speed, and real rewards
+              Built for Ugandan competitive gamers who demand fairness, speed, and real rewards
             </p>
           </div>
 
