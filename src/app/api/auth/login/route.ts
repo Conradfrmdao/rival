@@ -2,19 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
-import { createClient } from '@supabase/supabase-js';
-
-// Supabase client - deferred initialization
-const getSupabaseClient = () => {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Supabase configuration is missing');
-  }
-
-  return createClient(supabaseUrl, supabaseKey);
-};
+import { getSupabaseClient } from '@/lib/database';
 
 // JWT Configuration
 const JWT_SECRET = process.env.JWT_SECRET!;
