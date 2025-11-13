@@ -28,21 +28,13 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
-  const [step, setStep] = useState<'login' | 'otp'>('login');
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [timeLeft, setTimeLeft] = useState(0);
 
   const { login } = useAuthStore();
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    mode: 'onChange',
-  });
-
-  const otpForm = useForm<OTPFormData>({
-    resolver: zodResolver(otpSchema),
     mode: 'onChange',
   });
 
