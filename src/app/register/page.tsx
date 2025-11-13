@@ -165,55 +165,135 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            Rival
-          </h1>
-          <h2 className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-            P2P Gaming Platform
-          </h2>
+    <div className="min-h-screen bg-black text-white">
+      <div className="fixed inset-0 bg-gradient-to-br from-purple-900/20 via-black to-blue-900/20">
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
+      </div>
 
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-6">
-              {step === 'phone' ? 'Enter Your Phone Number' : 'Enter Verification Code'}
+      <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full">
+          <Card variant="glass" className="p-8 backdrop-blur-xl">
+            <div className="text-center mb-8">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+                Rival
+              </h1>
+              <p className="text-gray-400">
+                P2P Gaming Platform
+              </p>
+            </div>
+
+            <h3 className="text-xl font-semibold text-white mb-6 text-center">
+              {step === 'registration' ? 'Create Account' : 'Verify Your Phone'}
             </h3>
 
             {error && (
-              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 backdrop-blur-sm">
                 {error}
               </div>
             )}
 
-            {step === 'phone' ? (
-              <form onSubmit={phoneForm.handleSubmit(handleSendOTP)} className="space-y-6">
+            {step === 'registration' ? (
+              <form onSubmit={registrationForm.handleSubmit(handleRegistration)} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    {...registrationForm.register('firstName')}
+                    label="First Name"
+                    type="text"
+                    placeholder="John"
+                    icon={<User className="w-4 h-4" />}
+                    error={registrationForm.formState.errors.firstName?.message}
+                  />
+                  <Input
+                    {...registrationForm.register('lastName')}
+                    label="Last Name"
+                    type="text"
+                    placeholder="Doe"
+                    icon={<User className="w-4 h-4" />}
+                    error={registrationForm.formState.errors.lastName?.message}
+                  />
+                </div>
+
                 <Input
-                  {...phoneForm.register('phone')}
+                  {...registrationForm.register('nin')}
+                  label="National ID Number"
+                  type="text"
+                  placeholder="CM1234567890AB"
+                  icon={<CreditCard className="w-4 h-4" />}
+                  error={registrationForm.formState.errors.nin?.message}
+                  helperText="Enter your 14-character Uganda National ID"
+                />
+
+                <Input
+                  {...registrationForm.register('dateOfBirth')}
+                  label="Date of Birth"
+                  type="date"
+                  icon={<Calendar className="w-4 h-4" />}
+                  error={registrationForm.formState.errors.dateOfBirth?.message}
+                  helperText="You must be 18+ to register"
+                />
+
+                <Input
+                  {...registrationForm.register('phone')}
                   label="Phone Number"
                   type="tel"
                   placeholder="0781234567"
-                  icon={<Phone className="w-5 h-5" />}
-                  error={phoneForm.formState.errors.phone?.message}
+                  icon={<Phone className="w-4 h-4" />}
+                  error={registrationForm.formState.errors.phone?.message}
                   helperText="Enter your Uganda mobile number"
                 />
 
+                <div className="space-y-4">
+                  <label className="flex items-start gap-3 text-sm">
+                    <input
+                      type="checkbox"
+                      {...registrationForm.register('acceptTerms')}
+                      className="mt-1 rounded border-purple-500/30 bg-black/40 text-purple-600 focus:ring-purple-500 focus:ring-2"
+                    />
+                    <span className="text-gray-300">
+                      I accept the{' '}
+                      <button type="button" className="text-purple-400 hover:text-purple-300 underline">
+                        Terms and Conditions
+                      </button>
+                      {' '}and{' '}
+                      <button type="button" className="text-purple-400 hover:text-purple-300 underline">
+                        Privacy Policy
+                      </button>
+                    </span>
+                  </label>
+                  {registrationForm.formState.errors.acceptTerms && (
+                    <p className="text-red-400 text-sm">
+                      {registrationForm.formState.errors.acceptTerms.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4 mb-6">
+                  <h4 className="font-semibold text-purple-300 mb-2">Uganda Gaming Regulations</h4>
+                  <p className="text-sm text-gray-400 leading-relaxed">
+                    By registering, you confirm that you are 18 years or older and agree to comply with
+                    Uganda's gaming regulations. Gaming involves financial risk and can be addictive.
+                    Please play responsibly.
+                  </p>
+                </div>
+
                 <Button
                   type="submit"
+                  variant="gradient"
                   fullWidth
                   loading={isLoading}
-                  disabled={!phoneForm.formState.isValid || isLoading}
+                  disabled={!registrationForm.formState.isValid || isLoading}
+                  size="lg"
                 >
-                  Send OTP
+                  Create Account & Verify Phone
                 </Button>
               </form>
             ) : (
               <form onSubmit={otpForm.handleSubmit(handleVerifyOTP)} className="space-y-6">
-                <div className="text-center mb-4">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                <div className="text-center mb-6">
+                  <p className="text-gray-400 mb-2">
                     We sent a 6-digit code to
                   </p>
-                  <p className="font-medium text-gray-900 dark:text-white">
+                  <p className="font-semibold text-white text-lg">
                     {phoneNumber}
                   </p>
                 </div>
@@ -241,11 +321,12 @@ export default function RegisterPage() {
 
                   <Button
                     type="submit"
+                    variant="gradient"
                     loading={isLoading}
                     disabled={!otpForm.formState.isValid || isLoading}
                     className="flex-1"
                   >
-                    Verify
+                    Verify & Complete
                   </Button>
                 </div>
 
@@ -254,7 +335,7 @@ export default function RegisterPage() {
                     type="button"
                     onClick={handleResendOTP}
                     disabled={timeLeft > 0 || isLoading}
-                    className="text-sm text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 disabled:text-gray-400 disabled:cursor-not-allowed"
+                    className="text-sm text-purple-400 hover:text-purple-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
                   >
                     {timeLeft > 0
                       ? `Resend code in ${formatTime(timeLeft)}`
@@ -263,11 +344,13 @@ export default function RegisterPage() {
                 </div>
               </form>
             )}
-          </div>
 
-          <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-            <p>By continuing, you agree to our Terms of Service and Privacy Policy.</p>
-          </div>
+            <div className="mt-8 pt-6 border-t border-white/10 text-center">
+              <p className="text-xs text-gray-500">
+                © 2025 Naughty Code Systems. All rights reserved.
+              </p>
+            </div>
+          </Card>
         </div>
       </div>
     </div>
