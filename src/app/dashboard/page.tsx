@@ -91,8 +91,8 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header onLogout={handleLogout} />
+    <div className="min-h-screen bg-black">
+      <Header onLogout={handleLogout} currentPage="dashboard" />
 
       <div className="flex">
         <Navigation />
