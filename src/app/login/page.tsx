@@ -43,28 +43,32 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      // Simulate login API call
-      // In real implementation, this would call your backend API
       const formattedPhone = formatPhoneNumber(data.phone);
 
-      // Mock successful login for demo
-      const mockUser = {
-        id: '1',
-        username: 'demo_user',
-        firstName: 'Demo',
-        lastName: 'User',
-        phone: formattedPhone,
-        email: 'demo@example.com',
-        created_at: new Date().toISOString()
-      };
+      // Call backend API for login
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: formattedPhone,
+          password: data.password,
+        }),
+      });
 
-      const mockToken = 'mock-jwt-token';
+      const result = await response.json();
 
-      login(mockUser, mockToken);
-      router.push('/dashboard');
+      if (result.success && result.data) {
+        // Login successful
+        login(result.data.user, result.data.tokens.token);
+        router.push('/dashboard');
+      } else {
+        setError(result.error || 'Login failed. Please try again.');
+      }
 
     } catch (err) {
-      setError('Invalid phone number or password. Please try again.');
+      setError('Network error. Please check your connection and try again.');
     } finally {
       setIsLoading(false);
     }
