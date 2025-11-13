@@ -14,7 +14,7 @@ interface GameLobbyProps {
   gameType?: string;
 }
 
-export default function GameLobby({ gameType: propGameType }: GameLobbyProps) {
+function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const gameType = propGameType || searchParams?.get('game') || '';
