@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Hand from '../Hand';
 
 interface RockPaperScissorsProps {
   onMove: (move: 'rock' | 'paper' | 'scissors') => void;
