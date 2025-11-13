@@ -76,6 +76,7 @@ export async function POST(request: NextRequest) {
     const validatedData = loginSchema.parse(body);
 
     // Find user by phone
+    const supabase = getSupabaseClient();
     const { data: user, error } = await supabase
       .from('users')
       .select('*')
