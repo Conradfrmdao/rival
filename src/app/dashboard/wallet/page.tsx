@@ -13,6 +13,11 @@ export default function WalletPage() {
   const { logout } = useAuthStore();
   const { setBalance, addTransaction } = useWalletStore();
 
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
+
   const handleDeposit = async (amount: number, phone: string) => {
     // Simulate deposit processing
     console.log('Processing deposit:', amount, phone);
