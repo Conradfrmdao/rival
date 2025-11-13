@@ -98,9 +98,9 @@ export default function PenaltyTake({
     if (!result) return '';
 
     if (result === 'goal') {
-      return 'GOAL! 🥅⚽';
+      return 'GOAL! Amazing shot!';
     } else {
-      return 'SAVED! 🧤😔';
+      return 'SAVED! Great keeper!';
     }
   };
 
