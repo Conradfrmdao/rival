@@ -73,7 +73,9 @@ export async function POST(request: NextRequest) {
       .eq('is_active', true)
       .single();
 
-    if (error || !user || !user.password_hash) {
+    const userTyped = user as User;
+
+    if (error || !userTyped || !userTyped.password_hash) {
       return NextResponse.json(
         { success: false, error: 'Invalid phone number or password' },
         { status: 401 }
@@ -81,7 +83,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify password
-    const isPasswordValid = await bcrypt.compare(validatedData.password, user.password_hash);
+    const isPasswordValid = await bcrypt.compare(validatedData.password, userTyped.password_hash);
     if (!isPasswordValid) {
       return NextResponse.json(
         { success: false, error: 'Invalid phone number or password' },
