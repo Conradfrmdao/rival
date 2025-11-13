@@ -384,6 +384,30 @@ export default function StakeHomePage() {
           </div>
         </section>
       </main>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-white/10 bg-black/50 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl p-2">
+                <Zap className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                Rival
+              </span>
+            </div>
+            <div className="text-center md:text-right">
+              <p className="text-sm text-gray-400">
+                © 2025 Naughty Code Systems. All rights reserved.
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                Uganda's Premier P2P Gaming Platform | Play Responsibly | 18+ Only
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
