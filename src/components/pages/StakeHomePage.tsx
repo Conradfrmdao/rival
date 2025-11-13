@@ -128,7 +128,7 @@ export default function StakeHomePage() {
                 </h1>
                 <Flame className="w-8 h-8 text-orange-500 animate-pulse" />
               </div>
-              <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
                 Experience Uganda's premier competitive gaming platform. Battle real players in skill-based games,
                 stake with Mobile Money, and claim your victories instantly.
               </p>
