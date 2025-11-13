@@ -125,10 +125,10 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setSelectedGame(game.type)}
-                    className={`p-4 rounded-lg border-2 transition-all ${
+                    className={`p-6 rounded-xl border-2 transition-all backdrop-blur-sm ${
                       selectedGame === game.type
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                        : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                        ? 'border-purple-500 bg-gradient-to-r from-purple-600/20 to-blue-600/20 text-white shadow-lg shadow-purple-500/25'
+                        : 'border-white/20 bg-white/5 hover:border-purple-500/50 hover:bg-white/10 text-white'
                     }`}
                   >
                     <div className="text-3xl mb-2">
