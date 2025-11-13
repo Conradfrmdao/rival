@@ -2,9 +2,10 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Trophy, TrendingUp, Clock, Wallet, Play, Users } from 'lucide-react';
+import { Trophy, TrendingUp, Clock, Wallet, Play, Users, ArrowLeft } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Navigation from '@/components/layout/Navigation';
+import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
 import { useWalletStore } from '@/store/walletStore';
 import { useGameStore } from '@/store/gameStore';
