@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(validatedData.password, 12);
 
     // Create user
-    const { data: newUser, error } = await supabase
+    const { data: newUser, error } = await (supabase as any)
       .from('users')
       .insert({
         phone: validatedData.phone,
