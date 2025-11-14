@@ -389,6 +389,29 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
               </div>
             </div>
           </div>
+
+          {/* Notifications */}
+          <div className="fixed bottom-4 right-4 space-y-2 z-50">
+            {useSocketStore.getState().notifications.map((notification) => (
+              <motion.div
+                key={notification.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                className={`p-4 rounded-lg text-sm font-medium ${
+                  notification.type === 'success'
+                    ? 'bg-green-600/20 text-green-400 border border-green-500/30'
+                    : notification.type === 'error'
+                    ? 'bg-red-600/20 text-red-400 border border-red-500/30'
+                    : notification.type === 'warning'
+                    ? 'bg-yellow-600/20 text-yellow-400 border border-yellow-500/30'
+                    : 'bg-blue-600/20 text-blue-400 border border-blue-500/30'
+                } backdrop-blur-xl`}
+              >
+                {notification.message}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
