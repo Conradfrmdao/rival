@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Users, Clock, Volume2, VolumeX, Settings, Trophy, X } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useGameStore } from '@/store/gameStore';
+import { useSocketStore } from '@/store/socketStore';
+import { useSocket } from '@/hooks/useSocket';
 import { formatCurrency } from '@/lib/utils';
 import Button from '@/components/ui/Button';
 
