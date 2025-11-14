@@ -1,8 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { Database } from '@/types/database';
 
-let supabaseClient: ReturnType<typeof createClient> | null = null;
+let supabaseClient: SupabaseClient<Database> | null = null;
 
-export const getSupabaseClient = () => {
+export const getSupabaseClient = (): SupabaseClient<Database> => {
   if (supabaseClient) {
     return supabaseClient;
   }
@@ -14,6 +15,6 @@ export const getSupabaseClient = () => {
     throw new Error('Supabase configuration is missing');
   }
 
-  supabaseClient = createClient(supabaseUrl, supabaseKey);
+  supabaseClient = createClient<Database>(supabaseUrl, supabaseKey);
   return supabaseClient;
 };
