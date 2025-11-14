@@ -321,11 +321,11 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Win Rate:</span>
-                    <span className="text-white">{opponent.winRate}%</span>
+                    <span className="text-white">{opponent.winRate || 0}%</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Games:</span>
-                    <span className="text-white">{opponent.gamesPlayed}</span>
+                    <span className="text-white">{opponent.gamesPlayed || 0}</span>
                   </div>
                 </div>
                 <div className="mt-4">
