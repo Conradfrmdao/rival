@@ -34,17 +34,78 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useAuthStore();
+  const { setMatchmaking } = useGameStore();
+  const {
+    isConnected,
+    isSearching,
+    isInMatch,
+    opponent,
+    gameSettings,
+    countdown,
+    voiceChat,
+    addNotification,
+    clearMatch,
+  } = useSocketStore();
+
+  const {
+    socket,
+    joinMatchmaking,
+    leaveMatchmaking,
+    playerReady,
+    leaveGame,
+    joinVoiceChat,
+    toggleVoiceMute,
+  } = useSocket();
 
   const gameType = searchParams?.get('game') || '';
   const stakeAmount = parseInt(searchParams?.get('stake') || '0');
 
-  const [opponent, setOpponent] = useState<Opponent | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [opponentReady, setOpponentReady] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15);
-  const [isMuted, setIsMuted] = useState(false);
-  const [countdown, setCountdown] = useState(0);
   const [gameStarting, setGameStarting] = useState(false);
+  const [isMuted, setIsMuted] = useState(voiceChat.isMuted);
+
+  // Start matchmaking when component mounts
+  useEffect(() => {
+    if (isConnected && gameType && stakeAmount > 0) {
+      setMatchmaking(true);
+      joinMatchmaking(gameType, stakeAmount);
+    }
+  }, [isConnected, gameType, stakeAmount, setMatchmaking, joinMatchmaking]);
+
+  // Handle socket events
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on('opponentReady', () => {
+      setOpponentReady(true);
+      addNotification('info', 'Opponent is ready!');
+    });
+
+    socket.on('gameStarting', (data: { countdown: number }) => {
+      setGameStarting(true);
+      setCountdown(data.countdown);
+    });
+
+    socket.on('opponentLeft', () => {
+      addNotification('warning', 'Opponent left the game');
+      handleLeaveGame(false);
+    });
+
+    return () => {
+      socket.off('opponentReady');
+      socket.off('gameStarting');
+      socket.off('opponentLeft');
+    };
+  }, [socket, addNotification]);
+
+  // Handle voice chat
+  useEffect(() => {
+    if (isInMatch && voiceChat.agoraChannel) {
+      // Voice chat is ready
+      setIsMuted(voiceChat.isMuted);
+    }
+  }, [isInMatch, voiceChat]);
 
   // Simulate finding opponent
   useEffect(() => {
