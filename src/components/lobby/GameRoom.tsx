@@ -1,0 +1,330 @@
+'use client';
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { ArrowLeft, Users, Clock, Volume2, VolumeX, Settings, Trophy, X } from 'lucide-react';
+import { useAuthStore } from '@/store/authStore';
+import { useGameStore } from '@/store/gameStore';
+import { formatCurrency } from '@/lib/utils';
+import Button from '@/components/ui/Button';
+
+interface GameRoomProps {
+  onLeaveGame: () => void;
+  onReadyToggle: (isReady: boolean) => void;
+}
+
+interface Opponent {
+  id: string;
+  username: string;
+  avatar_url?: string;
+  winRate: number;
+  gamesPlayed: number;
+}
+
+interface GameSettings {
+  gameType: string;
+  stakeAmount: number;
+  totalRounds: number;
+}
+
+export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { user } = useAuthStore();
+
+  const gameType = searchParams?.get('game') || '';
+  const stakeAmount = parseInt(searchParams?.get('stake') || '0');
+
+  const [opponent, setOpponent] = useState<Opponent | null>(null);
+  const [isReady, setIsReady] = useState(false);
+  const [opponentReady, setOpponentReady] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(15);
+  const [isMuted, setIsMuted] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+  const [gameStarting, setGameStarting] = useState(false);
+
+  // Simulate finding opponent
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const mockOpponent: Opponent = {
+        id: 'opponent_123',
+        username: `Player_${Math.floor(Math.random() * 1000)}`,
+        avatar_url: undefined,
+        winRate: Math.floor(Math.random() * 100),
+        gamesPlayed: Math.floor(Math.random() * 500) + 10,
+      };
+      setOpponent(mockOpponent);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Countdown timer for room
+  useEffect(() => {
+    if (timeLeft > 0 && !gameStarting) {
+      const timer = setTimeout(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (timeLeft === 0) {
+      // Auto-start if both ready
+      if (isReady && opponentReady && opponent) {
+        startGame();
+      }
+    }
+  }, [timeLeft, isReady, opponentReady, opponent, gameStarting]);
+
+  const handleReadyToggle = useCallback(() => {
+    const newReadyState = !isReady;
+    setIsReady(newReadyState);
+    onReadyToggle(newReadyState);
+
+    // Simulate opponent getting ready
+    if (!opponentReady && newReadyState) {
+      setTimeout(() => {
+        setOpponentReady(true);
+      }, 1000 + Math.random() * 2000);
+    }
+  }, [isReady, opponentReady, onReadyToggle]);
+
+  const startGame = () => {
+    setGameStarting(true);
+    setCountdown(3);
+
+    const countdownInterval = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(countdownInterval);
+          // Navigate to actual game
+          router.push(`/dashboard/game-play?game=${gameType}&stake=${stakeAmount}`);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
+  const handleLeaveGame = () => {
+    if (confirm('Are you sure you want to leave the game? You may lose your stake.')) {
+      onLeaveGame();
+      router.push('/dashboard/games');
+    }
+  };
+
+  const getGameDisplayName = () => {
+    switch (gameType) {
+      case 'rock_paper_scissors': return 'Rock Paper Scissors';
+      case 'ball_in_cup': return 'Ball in Cup';
+      case 'tic_tac_toe': return 'Tic Tac Toe';
+      case 'penalty_take': return 'Penalty Take';
+      default: return 'Unknown Game';
+    }
+  };
+
+  const bothPlayersReady = isReady && opponentReady && opponent;
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <div className="fixed inset-0 bg-gradient-to-br from-purple-900/20 via-black to-blue-900/20">
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
+      </div>
+
+      <div className="relative z-10 p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <Button
+            variant="ghost"
+            onClick={handleLeaveGame}
+            className="text-white hover:text-red-400"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Leave Game
+          </Button>
+
+          <div className="text-center">
+            <h1 className="text-2xl font-bold">{getGameDisplayName()}</h1>
+            <p className="text-gray-400">Stake: {formatCurrency(stakeAmount)}</p>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              onClick={() => setIsMuted(!isMuted)}
+              className="text-white hover:text-purple-400"
+            >
+              {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-white hover:text-purple-400"
+            >
+              <Settings className="w-5 h-5" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-4xl mx-auto">
+          {/* Game Status */}
+          <div className="text-center mb-8">
+            {gameStarting ? (
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="space-y-4"
+              >
+                <div className="text-6xl font-bold text-green-400">
+                  {countdown > 0 ? countdown : 'GO!'}
+                </div>
+                <p className="text-xl">Game Starting!</p>
+              </motion.div>
+            ) : opponent ? (
+              <div className="space-y-2">
+                <p className="text-lg">Opponent Found! Get ready to play.</p>
+                <div className="flex items-center justify-center gap-2 text-gray-400">
+                  <Clock className="w-4 h-4" />
+                  <span>Room closes in {timeLeft} seconds</span>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-3">
+                  <div className="animate-spin w-6 h-6 border-2 border-purple-600 border-t-transparent rounded-full"></div>
+                  <p className="text-lg">Finding opponent...</p>
+                </div>
+                <p className="text-sm text-gray-400">This usually takes a few seconds</p>
+              </div>
+            )}
+          </div>
+
+          {/* Players */}
+          {opponent && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              {/* Player */}
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+                <h3 className="text-lg font-semibold mb-4">You</h3>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center border-2 border-white/20">
+                    {user?.avatar_url ? (
+                      <img src={user.avatar_url} alt={user.username} className="w-14 h-14 rounded-full object-cover" />
+                    ) : (
+                      <Users className="w-8 h-8 text-white" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">{user?.username || 'You'}</p>
+                    <p className="text-sm text-gray-400">Ready to play</p>
+                  </div>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Status:</span>
+                    <span className={`font-medium ${isReady ? 'text-green-400' : 'text-yellow-400'}`}>
+                      {isReady ? 'Ready' : 'Not Ready'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Level:</span>
+                    <span className="text-white">1</span>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <Button
+                    onClick={handleReadyToggle}
+                    variant={isReady ? 'secondary' : 'primary'}
+                    fullWidth
+                    disabled={gameStarting}
+                    className={isReady ? 'bg-green-600 hover:bg-green-700' : ''}
+                  >
+                    {isReady ? 'Cancel Ready' : 'I\'m Ready'}
+                  </Button>
+                </div>
+              </div>
+
+              {/* Opponent */}
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+                <h3 className="text-lg font-semibold mb-4">Opponent</h3>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-600 rounded-full flex items-center justify-center border-2 border-white/20">
+                    <Users className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">{opponent.username}</p>
+                    <p className="text-sm text-gray-400">Found opponent</p>
+                  </div>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Status:</span>
+                    <span className={`font-medium ${opponentReady ? 'text-green-400' : 'text-yellow-400'}`}>
+                      {opponentReady ? 'Ready' : 'Getting Ready...'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Win Rate:</span>
+                    <span className="text-white">{opponent.winRate}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Games:</span>
+                    <span className="text-white">{opponent.gamesPlayed}</span>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <div className={`w-full py-3 px-4 rounded-lg text-center font-medium ${
+                    opponentReady ? 'bg-green-600/20 text-green-400 border border-green-500/30' : 'bg-yellow-600/20 text-yellow-400 border border-yellow-500/30'
+                  }`}>
+                    {opponentReady ? 'Opponent Ready!' : 'Waiting for opponent...'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Game Settings */}
+          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mb-8">
+            <h3 className="text-lg font-semibold mb-4">Game Settings</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <div>
+                <p className="text-2xl font-bold text-purple-400 mb-2">{getGameDisplayName()}</p>
+                <p className="text-sm text-gray-400">Game Type</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-green-400 mb-2">{formatCurrency(stakeAmount)}</p>
+                <p className="text-sm text-gray-400">Stake Amount</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-blue-400 mb-2">Best of 3</p>
+                <p className="text-sm text-gray-400">Game Mode</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Voice Chat Status */}
+          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Volume2 className="w-5 h-5 text-purple-400" />
+                <span className="text-white">Voice Chat</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${opponent ? 'bg-green-400' : 'bg-gray-400'}`}></div>
+                <span className="text-sm text-gray-400">
+                  {opponent ? 'Connected' : 'Waiting for opponent...'}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsMuted(!isMuted)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
