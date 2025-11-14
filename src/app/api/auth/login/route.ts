@@ -103,14 +103,12 @@ export async function POST(request: NextRequest) {
     const tokens = generateTokens(userTyped.id);
 
     // Update last login
-    const { error: updateError } = await supabase
-      .from('users')
-      .update({
-        last_login: new Date().toISOString()
-      } as Database['public']['Tables']['users']['Update'])
-      .eq('id', userTyped.id);
-
-    if (updateError) {
+    try {
+      await (supabase as any)
+        .from('users')
+        .update({ last_login: new Date().toISOString() })
+        .eq('id', userTyped.id);
+    } catch (updateError) {
       console.error('Error updating last login:', updateError);
     }
 
