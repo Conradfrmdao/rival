@@ -45,6 +45,7 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
     voiceChat,
     addNotification,
     clearMatch,
+    setCountdown,
   } = useSocketStore();
 
   const {
