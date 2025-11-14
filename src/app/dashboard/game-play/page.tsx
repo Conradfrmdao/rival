@@ -238,48 +238,70 @@ function GamePlayContent() {
   };
 
   return (
-    <div className="min-h-screen bg-black">
-      <Header onLogout={handleLogout} currentPage="game-play" />
-      <div className="flex">
-        <Navigation />
-        <main className="flex-1">
-          <div className="p-6">
-            {/* Back Button */}
-            <div className="mb-6">
-              <Link href="/dashboard/games" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
-                ← Back to Games
+    <StakeLayout showSidebar={true}>
+      <div className="p-6">
+        {/* Category Tabs */}
+        <div className="flex items-center gap-3 overflow-x-auto pb-4 mb-6 border-b border-gray-800">
+          {['Games', 'Playing', 'History', 'Stats'].map((tab) => (
+            <button
+              key={tab}
+              className={`px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                tab === 'Playing'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                  : 'text-gray-400 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        {/* Back Button */}
+        <div className="mb-6">
+          <Link href="/dashboard/games" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+            ← Back to Games
+          </Link>
+        </div>
+
+        {/* Game Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2">{getGameTitle()}</h1>
+          <p className="text-gray-400">Stake: {stakeAmount.toLocaleString()} UGX</p>
+          {gameState === 'finished' && (
+            <div className="mt-6 space-x-4">
+              <button
+                onClick={resetGame}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-bold"
+              >
+                Play Again
+              </button>
+              <Link
+                href="/dashboard/games"
+                className="bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg inline-block font-medium"
+              >
+                Back to Lobby
               </Link>
             </div>
+          )}
+        </div>
 
-            {/* Game Header */}
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-white mb-2">{getGameTitle()}</h1>
-              <p className="text-gray-400">Stake: {stakeAmount.toLocaleString()} UGX</p>
-              {gameState === 'finished' && (
-                <div className="mt-4 space-x-4">
-                  <button
-                    onClick={resetGame}
-                    className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg"
-                  >
-                    Play Again
-                  </button>
-                  <Link
-                    href="/dashboard/games"
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg inline-block"
-                  >
-                    Back to Lobby
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Game Component */}
-            <div className="flex items-center justify-center min-h-[400px]">
-              {renderGame()}
-            </div>
-          </div>
-        </main>
+        {/* Game Component */}
+        <div className="flex items-center justify-center min-h-[400px]">
+          {renderGame()}
+        </div>
       </div>
-    </div>
+    </StakeLayout>
+  );
+}
+
+export default function GamePlayPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Loading game...</div>
+      </div>
+    }>
+      <GamePlayContent />
+    </Suspense>
   );
 }
