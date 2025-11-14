@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "server:dev": "ts-node src/server.ts",
+    "server:build": "tsc --project tsconfig.server.json",
+    "server:start": "node dist/server.js",
+    "fullstack": "concurrently \"npm run dev\" \"npm run server:dev\""
   },
   "dependencies": {
     "react": "19.2.0",
