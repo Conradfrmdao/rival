@@ -9,7 +9,7 @@ import Badge from "@/components/ui/Badge";
 import GameImage from "@/components/games/GameImages";
 
 export default function StakeHomePage() {
-  
+
   const features = [
     {
       icon: Zap,
@@ -44,7 +44,7 @@ export default function StakeHomePage() {
     { name: 'Tic Tac Toe', icon: '⭕', difficulty: 'Easy', players: '1v1', minStake: 500 }
   ];
 
-  
+
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Animated Background */}
