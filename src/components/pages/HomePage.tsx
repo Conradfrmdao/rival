@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { ArrowRight, Trophy, Users, Shield, Zap, Sparkles, Eye, EyeOff, Star, ChevronRight, Flame, Crown } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Trophy, Users, Shield, Zap, Sparkles, Star, ChevronRight, Flame, Crown } from "lucide-react";
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -10,17 +9,6 @@ import Badge from "@/components/ui/Badge";
 import GameImage from "@/components/games/GameImages";
 
 export default function HomePage() {
-  const [loginPhone, setLoginPhone] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [showLoginPassword, setShowLoginPassword] = useState(false);
-
-  const [signupUsername, setSignupUsername] = useState('');
-  const [signupPhone, setSignupPhone] = useState('');
-  const [signupPassword, setSignupPassword] = useState('');
-  const [showSignupPassword, setShowSignupPassword] = useState(false);
-
-  const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
-
   const features = [
     {
       icon: Zap,
@@ -85,43 +73,37 @@ export default function HomePage() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="#games" className="text-gray-300 hover:text-white transition-colors">
-              Games
+          <div className="flex items-center space-x-4">
+            <Link href="/register">
+              <Button variant="outline" size="sm" className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10">
+                Sign Up
+              </Button>
             </Link>
-            <Link href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
-              How It Works
+            <Link href="/login">
+              <Button size="sm" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0">
+                Login
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
             </Link>
-            <Link href="/dashboard">
-              <Button variant="glass">Dashboard</Button>
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button variant="glass" size="sm" className="text-white">
-              Menu
-            </Button>
           </div>
         </div>
       </nav>
 
       <main className="relative z-10">
-        {/* Hero Section with Login/Signup */}
+        {/* Hero Section */}
         <section className="max-w-7xl mx-auto px-6 py-20 sm:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Hero Content */}
+          <div className="text-center">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-center lg:text-left"
+              className="mb-8"
             >
-              <Badge variant="glow" className="mb-6 inline-flex">
+              <Badge variant="glow" className="mb-6">
                 <Sparkles className="w-4 h-4 mr-2" />
                 Uganda's Premier P2P Gaming Platform
               </Badge>
-              <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
+              <div className="flex items-center justify-center gap-4 mb-6">
                 <Flame className="w-8 h-8 text-orange-500 animate-pulse" />
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">
@@ -134,164 +116,23 @@ export default function HomePage() {
                 </h1>
                 <Flame className="w-8 h-8 text-orange-500 animate-pulse" />
               </div>
-              <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
                 Experience Uganda's premier competitive gaming platform. Battle real players in skill-based games,
                 stake with Mobile Money, and claim your victories instantly.
               </p>
-            </motion.div>
-
-            {/* Right Side - Login/Signup Forms */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Card variant="glass" className="p-8 backdrop-blur-xl border border-purple-500/20">
-                <div className="flex mb-6 bg-white/5 rounded-lg p-1">
-                  <button
-                    onClick={() => setActiveTab('login')}
-                    className={`flex-1 py-2 px-4 rounded-md transition-all duration-200 ${
-                      activeTab === 'login'
-                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    Login
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('signup')}
-                    className={`flex-1 py-2 px-4 rounded-md transition-all duration-200 ${
-                      activeTab === 'signup'
-                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    Sign Up
-                  </button>
-                </div>
-
-                {activeTab === 'login' ? (
-                  <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        value={loginPhone}
-                        onChange={(e) => setLoginPhone(e.target.value)}
-                        placeholder="2567XX000000"
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Password
-                      </label>
-                      <div className="relative">
-                        <input
-                          type={showLoginPassword ? 'text' : 'password'}
-                          value={loginPassword}
-                          onChange={(e) => setLoginPassword(e.target.value)}
-                          placeholder="Enter your password"
-                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-12"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowLoginPassword(!showLoginPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
-                        >
-                          {showLoginPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <label className="flex items-center">
-                        <input type="checkbox" className="mr-2 rounded" />
-                        <span className="text-gray-300">Remember me</span>
-                      </label>
-                      <Link href="/forgot-password" className="text-purple-400 hover:text-purple-300">
-                        Forgot password?
-                      </Link>
-                    </div>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 py-3"
-                    >
-                      Login to Play
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </form>
-                ) : (
-                  <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Username
-                      </label>
-                      <input
-                        type="text"
-                        value={signupUsername}
-                        onChange={(e) => setSignupUsername(e.target.value)}
-                        placeholder="Choose a username"
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        value={signupPhone}
-                        onChange={(e) => setSignupPhone(e.target.value)}
-                        placeholder="2567XX000000"
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Password
-                      </label>
-                      <div className="relative">
-                        <input
-                          type={showSignupPassword ? 'text' : 'password'}
-                          value={signupPassword}
-                          onChange={(e) => setSignupPassword(e.target.value)}
-                          placeholder="Create a strong password"
-                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-12"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowSignupPassword(!showSignupPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
-                        >
-                          {showSignupPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                        </button>
-                      </div>
-                    </div>
-                    <div className="text-sm">
-                      <label className="flex items-center">
-                        <input type="checkbox" className="mr-2 rounded" required />
-                        <span className="text-gray-300">
-                          I agree to the{' '}
-                          <Link href="/terms" className="text-purple-400 hover:text-purple-300">
-                            Terms & Conditions
-                          </Link>
-                        </span>
-                      </label>
-                    </div>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 py-3"
-                    >
-                      Create Account
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </form>
-                )}
-              </Card>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <Link href="/register">
+                  <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 text-lg px-8 py-4 rounded-xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300">
+                    Start Playing Now
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+                <Link href="#games">
+                  <Button variant="outline" size="lg" className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 text-lg px-8 py-4 rounded-xl">
+                    View Games
+                  </Button>
+                </Link>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -365,10 +206,12 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="border-t border-white/10 p-4">
-                    <Button fullWidth className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 hover:from-purple-600/30 hover:to-blue-600/30 text-white border border-purple-500/30">
-                      Play Now
-                      <ChevronRight className="w-4 h-4 ml-2" />
-                    </Button>
+                    <Link href="/register">
+                      <Button fullWidth className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 hover:from-purple-600/30 hover:to-blue-600/30 text-white border border-purple-500/30">
+                        Play Now
+                        <ChevronRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </Link>
                   </div>
                 </Card>
               </motion.div>
@@ -454,10 +297,12 @@ export default function HomePage() {
                   Your competition is waiting. Your victory is one battle away.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 text-lg px-12 py-4 rounded-xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300">
-                    Start Winning Now
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
+                  <Link href="/register">
+                    <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 text-lg px-12 py-4 rounded-xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300">
+                      Start Winning Now
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </Link>
                   <Link href="#games">
                     <Button variant="outline" size="lg" className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 text-lg px-12 py-4 rounded-xl">
                       View Games
