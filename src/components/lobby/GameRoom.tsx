@@ -184,7 +184,7 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
         <div className="flex items-center justify-between mb-8">
           <Button
             variant="ghost"
-            onClick={handleLeaveGame}
+            onClick={() => handleLeaveGame()}
             className="text-white hover:text-red-400"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
