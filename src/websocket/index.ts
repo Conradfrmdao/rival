@@ -1,7 +1,7 @@
 import { Server as HTTPServer } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
 import jwt from 'jsonwebtoken';
-import { getSupabaseClient } from './database';
+import { getSupabaseClient } from '@/lib/database';
 
 // JWT Configuration
 const JWT_SECRET = process.env.JWT_SECRET!;
