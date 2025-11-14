@@ -6,11 +6,13 @@ import { NextApiResponse } from 'next';
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-interface SocketServer {
+interface SocketServerInterface {
   io: ServerIO | null;
 }
 
-const SocketServer = SocketServer as { io: ServerIO | null } & { io: ServerIO | null };
+const SocketServer: SocketServerInterface = {
+  io: null
+};
 
 const resMap = new WeakMap<NextApiResponse, { socket: any; }>();
 
