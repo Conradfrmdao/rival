@@ -193,7 +193,7 @@ export default function StakeHomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {games.map((game, index) => (
               <motion.div
                 key={game.name}
@@ -201,7 +201,7 @@ export default function StakeHomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card variant="glass" className="group cursor-pointer hover:scale-105 transition-all duration-300 overflow-hidden bg-[#1e2130] border-gray-800">
+                <Card variant="glass" className="group cursor-pointer hover:scale-105 transition-all duration-300 overflow-hidden">
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-t-xl" />
                     <div className="relative p-6">
@@ -219,8 +219,8 @@ export default function StakeHomePage() {
                       </div>
                     </div>
                   </div>
-                  <div className="border-t border-gray-700 p-4">
-                    <Button fullWidth className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0">
+                  <div className="border-t border-white/10 p-4">
+                    <Button fullWidth className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 hover:from-purple-600/30 hover:to-blue-600/30 text-white border border-purple-500/30">
                       Play Now
                       <ChevronRight className="w-4 h-4 ml-2" />
                     </Button>
