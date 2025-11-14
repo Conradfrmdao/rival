@@ -10,7 +10,9 @@
     "server:dev": "ts-node src/server.ts",
     "server:build": "tsc --project tsconfig.server.json",
     "server:start": "node dist/server.js",
-    "fullstack": "concurrently \"npm run dev\" \"npm run server:dev\""
+    "fullstack": "concurrently \"npm run dev\" \"npm run server:dev\"",
+    "test:api": "ts-node src/tests/run-tests.ts",
+    "test:server": "npm run server:build && npm run test:api"
   },
   "dependencies": {
     "react": "19.2.0",
