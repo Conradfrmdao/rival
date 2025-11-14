@@ -119,10 +119,14 @@ export async function POST(request: NextRequest) {
     const tokens = generateTokens(newUser.id);
 
     // Update last login
-    await supabase
-      .from('users')
-      .update({ last_login: new Date().toISOString() })
-      .eq('id', newUser.id);
+    try {
+      await (supabase as any)
+        .from('users')
+        .update({ last_login: new Date().toISOString() })
+        .eq('id', newUser.id);
+    } catch (updateError) {
+      console.error('Error updating last login:', updateError);
+    }
 
     const response = {
       success: true,
