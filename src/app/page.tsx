@@ -1,5 +1,5 @@
-import StakeHomePage from "@/components/pages/StakeHomePage";
+import HomePage from "@/components/pages/HomePage";
 
 export default function Home() {
-  return <StakeHomePage />;
+  return <HomePage />;
 }
