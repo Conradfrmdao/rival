@@ -3,14 +3,14 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Trophy, TrendingUp, Clock, Wallet, Play, Users, ArrowLeft } from 'lucide-react';
-import StakeLayout from '@/components/layout/StakeLayout';
+import Header from '@/components/layout/Header';
+import Navigation from '@/components/layout/Navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
 import { useWalletStore } from '@/store/walletStore';
 import { useGameStore } from '@/store/gameStore';
 import { formatCurrency } from '@/lib/utils';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
 
 export default function Dashboard() {
   const router = useRouter();
