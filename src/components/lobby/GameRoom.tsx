@@ -216,7 +216,7 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
         <div className="max-w-4xl mx-auto">
           {/* Game Status */}
           <div className="text-center mb-8">
-            {gameStarting ? (
+            {gameStarting || countdown > 0 ? (
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -227,21 +227,31 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
                 </div>
                 <p className="text-xl">Game Starting!</p>
               </motion.div>
-            ) : opponent ? (
-              <div className="space-y-2">
-                <p className="text-lg">Opponent Found! Get ready to play.</p>
-                <div className="flex items-center justify-center gap-2 text-gray-400">
-                  <Clock className="w-4 h-4" />
-                  <span>Room closes in {timeLeft} seconds</span>
-                </div>
-              </div>
-            ) : (
+            ) : isSearching ? (
               <div className="space-y-2">
                 <div className="inline-flex items-center gap-3">
                   <div className="animate-spin w-6 h-6 border-2 border-purple-600 border-t-transparent rounded-full"></div>
                   <p className="text-lg">Finding opponent...</p>
                 </div>
-                <p className="text-sm text-gray-400">This usually takes a few seconds</p>
+                <p className="text-sm text-gray-400">
+                  {isConnected ? 'Connected to matchmaking' : 'Connecting...'}
+                </p>
+              </div>
+            ) : opponent ? (
+              <div className="space-y-2">
+                <p className="text-lg">Opponent Found! Get ready to play.</p>
+                <div className="flex items-center justify-center gap-2 text-gray-400">
+                  <Clock className="w-4 h-4" />
+                  <span>Waiting for both players to be ready</span>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <p className="text-lg">Connecting to game server...</p>
+                <div className="inline-flex items-center gap-3">
+                  <div className="w-6 h-6 bg-red-500 rounded-full"></div>
+                  <p className="text-red-400">Connection Failed</p>
+                </div>
               </div>
             )}
           </div>
