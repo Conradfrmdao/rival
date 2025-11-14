@@ -57,51 +57,7 @@ export default function StakeHomePage() {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="relative z-10 px-6 py-6 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 blur-lg rounded-full opacity-60 group-hover:opacity-80 transition-opacity" />
-              <div className="relative bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl p-2">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                Rival
-              </h1>
-              <span className="text-xs text-gray-400 uppercase tracking-wider">P2P Gaming</span>
-            </div>
-          </Link>
-
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="/login" className="text-gray-300 hover:text-white transition-colors">
-              Login
-            </Link>
-            <Link href="#games" className="text-gray-300 hover:text-white transition-colors">
-              Games
-            </Link>
-            <Link href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
-              How It Works
-            </Link>
-            <Link href="/register">
-              <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0">
-                Get Started
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button variant="glass" size="sm" className="text-white">
-              Menu
-            </Button>
-          </div>
-        </div>
-      </nav>
-
+  
       <main className="relative z-10">
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto px-6 py-20 sm:py-32">
