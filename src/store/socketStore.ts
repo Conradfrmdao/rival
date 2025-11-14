@@ -65,7 +65,7 @@ interface SocketGameActions {
   setCountdown: (countdown: number) => void;
   setVoiceChat: (voiceChat: Partial<SocketGameState['voiceChat']>) => void;
   setError: (error: string | null) => void;
-  addNotification: (type: SocketGameActions['addNotification']['0'], message: string) => void;
+  addNotification: (type: 'info' | 'success' | 'warning' | 'error', message: string) => void;
   removeNotification: (id: string) => void;
   clearNotifications: () => void;
   reset: () => void;
