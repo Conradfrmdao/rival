@@ -107,72 +107,57 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
     }
   }, [isInMatch, voiceChat]);
 
-  // Simulate finding opponent
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const mockOpponent: Opponent = {
-        id: 'opponent_123',
-        username: `Player_${Math.floor(Math.random() * 1000)}`,
-        avatar_url: undefined,
-        winRate: Math.floor(Math.random() * 100),
-        gamesPlayed: Math.floor(Math.random() * 500) + 10,
-      };
-      setOpponent(mockOpponent);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Countdown timer for room
-  useEffect(() => {
-    if (timeLeft > 0 && !gameStarting) {
-      const timer = setTimeout(() => {
-        setTimeLeft(prev => prev - 1);
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else if (timeLeft === 0) {
-      // Auto-start if both ready
-      if (isReady && opponentReady && opponent) {
-        startGame();
-      }
-    }
-  }, [timeLeft, isReady, opponentReady, opponent, gameStarting]);
-
   const handleReadyToggle = useCallback(() => {
     const newReadyState = !isReady;
     setIsReady(newReadyState);
     onReadyToggle(newReadyState);
 
-    // Simulate opponent getting ready
-    if (!opponentReady && newReadyState) {
-      setTimeout(() => {
-        setOpponentReady(true);
-      }, 1000 + Math.random() * 2000);
+    if (socket) {
+      playerReady(newReadyState);
     }
-  }, [isReady, opponentReady, onReadyToggle]);
+
+    if (newReadyState) {
+      addNotification('success', 'You are ready to play!');
+    } else {
+      addNotification('info', 'You are no longer ready');
+    }
+  }, [isReady, socket, playerReady, onReadyToggle, addNotification]);
 
   const startGame = () => {
-    setGameStarting(true);
-    setCountdown(3);
-
-    const countdownInterval = setInterval(() => {
-      setCountdown(prev => {
-        if (prev <= 1) {
-          clearInterval(countdownInterval);
-          // Navigate to actual game
-          router.push(`/dashboard/game-play?game=${gameType}&stake=${stakeAmount}`);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    if (isInMatch) {
+      // Navigate to actual game with match parameters
+      router.push(`/dashboard/game-play?game=${gameType}&stake=${stakeAmount}&match=${opponent?.id}`);
+    }
   };
 
-  const handleLeaveGame = () => {
-    if (confirm('Are you sure you want to leave the game? You may lose your stake.')) {
+  const handleLeaveGame = useCallback((showConfirmation = true) => {
+    const shouldLeave = showConfirmation
+      ? confirm('Are you sure you want to leave the game? You may lose your stake.')
+      : true;
+
+    if (shouldLeave) {
+      if (socket) {
+        leaveGame();
+        leaveMatchmaking();
+      }
+      clearMatch();
+      setMatchmaking(false);
       onLeaveGame();
       router.push('/dashboard/games');
     }
+  }, [socket, leaveGame, leaveMatchmaking, clearMatch, setMatchmaking, onLeaveGame]);
+
+  const handleVoiceChatToggle = () => {
+    const newMutedState = !isMuted;
+    setIsMuted(newMutedState);
+
+    if (socket && isInMatch) {
+      toggleVoiceMute(newMutedState);
+    }
+
+    // Update local voice chat state
+    const { setVoiceChat } = useSocketStore.getState();
+    setVoiceChat({ isMuted: newMutedState });
   };
 
   const getGameDisplayName = () => {
