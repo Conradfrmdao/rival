@@ -117,7 +117,7 @@ export default function StakeHomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -125,7 +125,7 @@ export default function StakeHomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card variant="glass" className="group hover:scale-105 transition-all duration-300">
+                <Card variant="glass" className="group hover:scale-105 transition-all duration-300 bg-[#1e2130] border-gray-800">
                   <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                     <feature.icon className="w-8 h-8 text-white" />
                   </div>
