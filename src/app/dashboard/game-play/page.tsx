@@ -122,10 +122,11 @@ export default function GamePlayPage() {
 
       case 'penalty_take':
         // Simulate penalty result
-        gameResult = Math.random() > 0.5 ? 'goal' as any : 'miss' as any;
-        if (gameResult === 'goal') {
+        const isGoal = Math.random() > 0.5;
+        if (isGoal) {
           setPlayerScore(prev => prev + 1);
         }
+        gameResult = isGoal ? 'win' : 'lose';
         break;
 
       default:
