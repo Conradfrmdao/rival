@@ -348,7 +348,9 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
                 <p className="text-sm text-gray-400">Game Type</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-green-400 mb-2">{formatCurrency(stakeAmount)}</p>
+                <p className="text-2xl font-bold text-green-400 mb-2">
+                  {formatCurrency(gameSettings?.stakeAmount || stakeAmount)}
+                </p>
                 <p className="text-sm text-gray-400">Stake Amount</p>
               </div>
               <div>
