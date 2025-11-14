@@ -59,7 +59,7 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api', (req: Request, res: Response, next: NextFunction) => {
   // For now, just pass through to Next.js API routes
   // In a full implementation, you might have custom Express routes here
-  res.status(404).json({ success: false, error: 'API endpoint not found' });
+  return res.status(404).json({ success: false, error: 'API endpoint not found' });
 });
 
 // Serve static files if in production
