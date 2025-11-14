@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Header from '@/components/layout/Header';
-import Navigation from '@/components/layout/Navigation';
+import StakeLayout from '@/components/layout/StakeLayout';
 import { useAuthStore } from '@/store/authStore';
 import RockPaperScissors from '@/components/games/RockPaperScissors';
 import TicTacToe from '@/components/games/TicTacToe';
@@ -11,7 +10,7 @@ import BallInCup from '@/components/games/BallInCup';
 import PenaltyTake from '@/components/games/PenaltyTake';
 import Link from 'next/link';
 
-export default function GamePlayPage() {
+function GamePlayContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { logout } = useAuthStore();
