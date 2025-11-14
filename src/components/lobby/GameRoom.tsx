@@ -366,17 +366,23 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
               <div className="flex items-center gap-3">
                 <Volume2 className="w-5 h-5 text-purple-400" />
                 <span className="text-white">Voice Chat</span>
+                {!isConnected && (
+                  <span className="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">Offline</span>
+                )}
               </div>
               <div className="flex items-center gap-2">
-                <div className={`w-2 h-2 rounded-full ${opponent ? 'bg-green-400' : 'bg-gray-400'}`}></div>
+                <div className={`w-2 h-2 rounded-full ${
+                  opponent && voiceChat.isActive ? 'bg-green-400' : 'bg-gray-400'
+                }`}></div>
                 <span className="text-sm text-gray-400">
-                  {opponent ? 'Connected' : 'Waiting for opponent...'}
+                  {opponent && voiceChat.isActive ? 'Connected' : 'Waiting...'}
                 </span>
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsMuted(!isMuted)}
+                  onClick={handleVoiceChatToggle}
                   className="text-gray-400 hover:text-white"
+                  disabled={!opponent}
                 >
                   {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                 </Button>
