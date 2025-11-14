@@ -198,7 +198,7 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
-              onClick={() => setIsMuted(!isMuted)}
+              onClick={handleVoiceChatToggle}
               className="text-white hover:text-purple-400"
             >
               {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
