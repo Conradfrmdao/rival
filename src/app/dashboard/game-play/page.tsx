@@ -201,7 +201,7 @@ export default function GamePlayPage() {
             {...commonProps}
             onMove={handlePlayerMove}
             gameState={gameState === 'playing' ? 'picking' : 'revealed'}
-            result={gameState === 'finished' && result === 'draw' ? null : result}
+            result={(gameState === 'finished' && result === 'draw' ? null : result) as 'win' | 'lose' | null}
           />
         );
 
