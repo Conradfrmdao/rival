@@ -1,5 +1,4 @@
-'use client';
-
+import axios from 'axios';
 import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
