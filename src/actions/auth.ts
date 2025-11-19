@@ -40,7 +40,7 @@ async function apiRequest<T>(
     if (!response.ok) {
       return {
         success: false,
-        error: data.error || `HTTP error! status: ${response.status}`,
+        error: (data as any).error || `HTTP error! status: ${response.status}`,
       };
     }
 
