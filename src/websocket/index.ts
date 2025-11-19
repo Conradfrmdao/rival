@@ -332,7 +332,7 @@ class WebSocketService {
             // Mark player as disconnected
             if (gameState.players.player1.id === userId) {
               gameState.players.player1.socketId = '';
-            } else if (gameState.players.player2?.id === userId) {
+            } else if (gameState.players.player2 && gameState.players.player2.id === userId) {
               gameState.players.player2.socketId = '';
             }
           }
