@@ -4,6 +4,7 @@ import { TicTacToeGame } from './tic-tac-toe';
 import { BallInCupGame } from './ball-in-cup';
 import { PenaltyTakeGame } from './penalty-take';
 import { MatatuGame } from './matatu';
+import { CloverChessGame } from './clover-chess';
 
 /**
  * This file is the central registry for all games in the Rival platform.
