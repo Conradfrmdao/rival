@@ -49,9 +49,6 @@ export default function BallInCup({
       }, shuffleDuration);
 
       return () => clearInterval(interval);
-    } else {
-        return;
-    }
     }
 
     if (gameState === 'revealed') {
