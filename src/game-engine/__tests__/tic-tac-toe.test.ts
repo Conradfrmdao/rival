@@ -20,42 +20,53 @@ describe('TicTacToeGame', () => {
 
   it('should allow a player to make a valid move', () => {
     let state = game.createGame([player1, player2], stakes);
-    const move: TicTacToeMove = { playerId: 'p1', position: 0 };
+    const firstPlayer = state.currentPlayerId;
+    const move: TicTacToeMove = { playerId: firstPlayer!, position: 0 };
     state = game.makeMove(state, move);
-    expect(state.board[0]).toBe('p1');
-    expect(state.currentPlayerId).toBe('p2');
+    expect(state.board[0]).toBe(firstPlayer);
+    const secondPlayer = (firstPlayer === 'p1') ? 'p2' : 'p1';
+    expect(state.currentPlayerId).toBe(secondPlayer);
   });
 
   it('should throw an error if a player moves to an occupied cell', () => {
     let state = game.createGame([player1, player2], stakes);
-    state = game.makeMove(state, { playerId: 'p1', position: 0 });
-    expect(() => game.makeMove(state, { playerId: 'p2', position: 0 })).toThrow('This cell is already occupied.');
+    const firstPlayer = state.currentPlayerId!;
+    const secondPlayer = (firstPlayer === 'p1') ? 'p2' : 'p1';
+    state = game.makeMove(state, { playerId: firstPlayer, position: 0 });
+    expect(() => game.makeMove(state, { playerId: secondPlayer, position: 0 })).toThrow('This cell is already occupied.');
   });
 
   it('should throw an error if a player moves out of turn', () => {
     const state = game.createGame([player1, player2], stakes);
-    expect(() => game.makeMove(state, { playerId: 'p2', position: 0 })).toThrow("It's not your turn.");
+    const secondPlayer = (state.currentPlayerId === 'p1') ? 'p2' : 'p1';
+    expect(() => game.makeMove(state, { playerId: secondPlayer, position: 0 })).toThrow("It's not your turn.");
   });
 
   it('should determine a winner by row', () => {
     let state = game.createGame([player1, player2], stakes);
-    // p1: 0, 1, 2
-    state = game.makeMove(state, { playerId: 'p1', position: 0 }); // p1
-    state = game.makeMove(state, { playerId: 'p2', position: 3 }); // p2
-    state = game.makeMove(state, { playerId: 'p1', position: 1 }); // p1
-    state = game.makeMove(state, { playerId: 'p2', position: 4 }); // p2
-    state = game.makeMove(state, { playerId: 'p1', position: 2 }); // p1 wins
+    const firstPlayer = state.currentPlayerId!;
+    const secondPlayer = (firstPlayer === 'p1') ? 'p2' : 'p1';
+
+    state = game.makeMove(state, { playerId: firstPlayer, position: 0 });
+    state = game.makeMove(state, { playerId: secondPlayer, position: 3 });
+    state = game.makeMove(state, { playerId: firstPlayer, position: 1 });
+    state = game.makeMove(state, { playerId: secondPlayer, position: 4 });
+    state = game.makeMove(state, { playerId: firstPlayer, position: 2 });
     expect(state.status).toBe('completed');
-    expect(state.winnerId).toBe('p1');
+    expect(state.winnerId).toBe(firstPlayer);
   });
 
   it('should determine a draw', () => {
     let state = game.createGame([player1, player2], stakes);
+    const firstPlayer = state.currentPlayerId!;
+    const secondPlayer = (firstPlayer === 'p1') ? 'p2' : 'p1';
     // A known draw sequence
     const moves = [0, 4, 1, 2, 6, 3, 5, 8, 7];
     moves.forEach((pos, i) => {
-        const currentPlayer = i % 2 === 0 ? player1.id : player2.id;
-        state = game.makeMove(state, { playerId: currentPlayer, position: pos });
+        const currentPlayer = i % 2 === 0 ? firstPlayer : secondPlayer;
+        if(state.status !== 'completed' && state.status !== 'draw'){
+          state = game.makeMove(state, { playerId: currentPlayer, position: pos });
+        }
     });
     expect(state.status).toBe('draw');
     expect(state.winnerId).toBeNull();
