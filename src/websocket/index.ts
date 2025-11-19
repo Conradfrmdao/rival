@@ -353,10 +353,6 @@ class WebSocketService {
     }
   }
 
-  public getActiveGames(): Map<string, GameState> {
-    return activeGames;
-  }
-
   public getConnectedUsers(): number {
     return userSockets.size;
   }
