@@ -38,8 +38,6 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
     return availableGames.find(game => game.type === selectedGame);
   };
 
-import axios from 'axios';
-
   const handlePlayNow = async () => {
     const gameInfo = getSelectedGameInfo();
     if (!gameInfo) return;
