@@ -25,15 +25,16 @@ describe('CloverChessGame', () => {
     expect(state.board[12][4]?.color).toBe('white');
   });
 
-  it('should allow a valid pawn move', () => {
+  it('should allow a valid knight move', () => {
     let state = game.createGame(players, stakes);
     const whitePlayerId = Object.keys(state.playerColors).find(id => state.playerColors[id] === 'white')!;
     state.currentPlayerId = whitePlayerId;
 
-    const move: CloverChessMove = { playerId: whitePlayerId, from: { row: 13, col: 4 }, to: { row: 11, col: 4 } };
+    // White knight's opening move
+    const move: CloverChessMove = { playerId: whitePlayerId, from: { row: 12, col: 5 }, to: { row: 10, col: 6 } };
     state = game.makeMove(state, move);
-    expect(state.board[11][4]?.type).toBe('pawn');
-    expect(state.board[13][4]).toBeNull();
+    expect(state.board[10][6]?.type).toBe('knight');
+    expect(state.board[12][5]).toBeNull();
   });
 
   it('should prevent moving another player\'s piece', () => {
