@@ -32,6 +32,8 @@ export default function BallInCup({
   }, []);
 
   useEffect(() => {
+    let interval: NodeJS.Timeout;
+
     if (gameState === 'shuffling') {
       setShuffling(true);
       setShowBall(false);
@@ -39,7 +41,7 @@ export default function BallInCup({
 
       // Simulate shuffling animation
       const shuffleDuration = 3000; // 3 seconds of shuffling
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setBallPosition(prev => (prev + 1) % 3);
       }, 200);
 
@@ -47,13 +49,17 @@ export default function BallInCup({
         clearInterval(interval);
         setShuffling(false);
       }, shuffleDuration);
-
-      return () => clearInterval(interval);
     }
 
     if (gameState === 'revealed') {
       setShowBall(true);
     }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [gameState]);
 
   const handleCupClick = (cupIndex: number) => {
