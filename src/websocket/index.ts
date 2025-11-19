@@ -155,55 +155,40 @@ class WebSocketService {
         }
       });
 
-      // Handle game moves
-      socket.on('game_move', async (data: { matchId: string; move: any; action: string }) => {
+      socket.on('game_move', (data: { matchId: string; move: any; }) => {
         try {
-          const { matchId, move, action } = data;
+          const { matchId, move } = data;
+          const userId = socket.data.userId;
 
-          // Verify user is in this match
           if (socket.data.currentMatch !== matchId) {
-            socket.emit('error', { message: 'Not in this match' });
-            return;
+            return socket.emit('error', { message: 'Not in this match' });
           }
 
-          const gameState = activeGames.get(matchId);
-          if (!gameState) {
-            socket.emit('error', { message: 'Game not found' });
-            return;
-          }
+          // Use the GameManager to make a move
+          const newState = GameManager.makeMove(matchId, { ...move, playerId: userId });
 
-          // Validate turn (for turn-based games)
-          if (gameState.currentTurn && gameState.currentTurn !== userId) {
-            socket.emit('error', { message: 'Not your turn' });
-            return;
-          }
-
-          // Broadcast move to all players in the match
-          socket.to(`match_${matchId}`).emit('opponent_move', {
-            move,
-            action,
-            player: {
-              id: userId,
-              username: username
-            },
-            timestamp: Date.now()
+          // Broadcast the updated, sanitized state to all players
+          const players = newState.players.map(p => p.id);
+          players.forEach(playerId => {
+            const sanitizedState = GameManager.getSanitizedState(matchId, playerId);
+            const playerSocket = userSockets.get(playerId);
+            if(playerSocket) {
+              playerSocket.emit('game_state', sanitizedState);
+            }
           });
 
-          // Update game state (this would typically sync with database)
-          if (action === 'make_move') {
-            // Update current turn for turn-based games
-            if (gameState.gameType === 'tic_tac_toe' && gameState.players.player2) {
-              gameState.currentTurn = gameState.players.player1.id === userId
-                ? gameState.players.player2.id || null
-                : gameState.players.player1.id;
-            }
+          // If the game is over, handle payouts and cleanup
+          if (newState.status === 'completed' || newState.status === 'draw') {
+            const gameResult = GameManager.endGame(matchId);
+            // Here you would typically trigger a separate process to handle payouts,
+            // update the database, etc.
+            console.log(`Game ${matchId} ended. Result: `, gameResult);
+            GameManager.removeGame(matchId);
           }
 
-          console.log(`Game move in match ${matchId} by ${username}:`, action);
-
-        } catch (error) {
+        } catch (error: any) {
           console.error('Error handling game move:', error);
-          socket.emit('error', { message: 'Failed to process move' });
+          socket.emit('error', { message: `Failed to process move: ${error.message}` });
         }
       });
 
