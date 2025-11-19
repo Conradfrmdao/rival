@@ -190,7 +190,7 @@ export default function DepositModal({
               type="tel"
               label="Mobile Money Phone Number"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => setPhone((e.target as HTMLInputElement).value)}
               placeholder="0781234567"
               required
               helperText="The phone number registered with your Mobile Money account"
