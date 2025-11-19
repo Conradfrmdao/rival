@@ -86,7 +86,6 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
     }
 
     // Handle friend invitation (in real app, send notification to friend)
-    alert(`Invitation sent to ${invitePhone}!`);
   };
 
   return (
