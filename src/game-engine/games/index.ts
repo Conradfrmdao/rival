@@ -24,5 +24,8 @@ export function initializeGames() {
   // Register Penalty Take
   registerGame('penalty-take', new PenaltyTakeGame());
 
+  // Register Matatu
+  registerGame('matatu', new MatatuGame());
+
   console.log('[GameRegistry] All games initialized.');
 }
