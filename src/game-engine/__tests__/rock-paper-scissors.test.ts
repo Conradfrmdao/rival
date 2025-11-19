@@ -25,7 +25,7 @@ describe('RockPaperScissorsGame', () => {
 
   it('should throw an error for a non-existent player', () => {
     const state = game.createGame([player1, player2], stakes);
-    expect(() => game.makeMove(state, { playerId: 'p3', move: 'rock' })).toThrow('Player not in this game.');
+    expect(() => game.makeMove(state, { playerId: 'p3', move: 'rock' })).toThrow("Player with ID 'p3' is not in this game.");
   });
 
   it('should determine a winner when player 1 wins', () => {
