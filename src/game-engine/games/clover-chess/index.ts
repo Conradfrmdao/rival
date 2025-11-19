@@ -277,6 +277,15 @@ export class CloverChessGame implements IGame<CloverChessGameState, CloverChessM
     return this.isValidRookMove(state, piece, move) || this.isValidBishopMove(state, piece, move);
   }
 
+  private isValidKingMove(state: CloverChessGameState, piece: Piece, move: CloverChessMove): boolean {
+    const { from, to } = move;
+    const dx = Math.abs(to.col - from.col);
+    const dy = Math.abs(to.row - from.row);
+
+    // King moves one square in any direction.
+    return dx <= 1 && dy <= 1;
+  }
+
   private createInitialBoard(): Board {
     const board: Board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
 
