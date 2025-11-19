@@ -20,6 +20,7 @@ const StakeLayout: React.FC<StakeLayoutProps> = ({ children, showSidebar = true 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user } = useAuthStore();
   const { balance } = useWalletStore();
+  const router = useRouter();
   const pathname = usePathname();
 
   // Navigation items for sidebar
