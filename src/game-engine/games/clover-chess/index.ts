@@ -247,6 +247,31 @@ export class CloverChessGame implements IGame<CloverChessGameState, CloverChessM
     return (dx === 1 && dy === 2) || (dx === 2 && dy === 1);
   }
 
+  private isValidBishopMove(state: CloverChessGameState, piece: Piece, move: CloverChessMove): boolean {
+    const { from, to } = move;
+    const dx = to.col - from.col;
+    const dy = to.row - from.row;
+
+    // Must be a purely diagonal move
+    if (Math.abs(dx) !== Math.abs(dy)) {
+        return false;
+    }
+
+    // Check for obstructions along the path
+    const xStep = dx > 0 ? 1 : -1;
+    const yStep = dy > 0 ? 1 : -1;
+    let c = from.col + xStep;
+    let r = from.row + yStep;
+
+    while (c !== to.col || r !== to.row) {
+        if (state.board[r][c]) return false; // Path is blocked
+        c += xStep;
+        r += yStep;
+    }
+
+    return true;
+  }
+
   private createInitialBoard(): Board {
     const board: Board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
 
