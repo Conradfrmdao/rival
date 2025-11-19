@@ -17,22 +17,8 @@ interface SocketData {
   currentMatch?: string;
 }
 
-// Game state interface
-interface GameState {
-  matchId: string;
-  players: {
-    player1: { id: string; username: string; socketId: string };
-    player2?: { id: string; username: string; socketId: string };
-  };
-  gameType: string;
-  gameState: any;
-  currentTurn: string | null;
-  status: 'waiting' | 'active' | 'finished';
-  createdAt: number;
-}
-
-// Store active game states
-const activeGames = new Map<string, GameState>();
+import { GameManager } from '../game-engine/manager';
+import { Player as GamePlayer, GameState, Move } from '../game-engine/types';
 
 // Store user socket mappings
 const userSockets = new Map<string, Socket>();
