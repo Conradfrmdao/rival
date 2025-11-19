@@ -119,56 +119,25 @@ class WebSocketService {
             return;
           }
 
-          // Join socket room for the match
           socket.join(`match_${matchId}`);
           socket.data.currentMatch = matchId;
 
-          // Initialize or update game state
-          let gameState = activeGames.get(matchId);
+          // Use the GameManager to handle game creation and state
+          let gameState = GameManager.getGame(matchId);
           if (!gameState) {
-            gameState = {
-              matchId,
-              players: {
-                player1: {
-                  id: match.player1.id,
-                  username: match.player1.username,
-                  socketId: ''
-                }
-              },
-              gameType: match.games.type,
-              gameState: match.game_data || {},
-              currentTurn: match.game_data?.currentTurn || null,
-              status: match.status === 'active' ? 'active' : 'waiting',
-              createdAt: Date.now()
-            };
-            activeGames.set(matchId, gameState);
-          }
-
-          // Add player2 if they exist
-          if (match.player2 && !gameState.players.player2) {
-            gameState.players.player2 = {
-              id: match.player2.id,
-              username: match.player2.username,
-              socketId: ''
-            };
-          }
-
-          // Update socket ID for the current player
-          if (gameState.players.player1.id === userId) {
-            gameState.players.player1.socketId = socket.id;
-          } else if (gameState.players.player2 && gameState.players.player2.id === userId) {
-            gameState.players.player2.socketId = socket.id;
+            const gamePlayers: GamePlayer[] = [match.player1, match.player2].filter(Boolean).map(p => ({ id: p.id, name: p.username }));
+            try {
+              gameState = GameManager.createGame(match.games.type, gamePlayers, { amount: match.stakes, currency: 'USD' });
+              GameManager.addGame(matchId, gameState);
+            } catch (e: any) {
+              socket.emit('error', { message: `Failed to create game: ${e.message}` });
+              return;
+            }
           }
 
           // Notify player about current game state
-          socket.emit('game_state', {
-            matchId,
-            gameType: gameState.gameType,
-            gameState: gameState.gameState,
-            currentTurn: gameState.currentTurn,
-            players: gameState.players,
-            status: gameState.status
-          });
+          const sanitizedState = GameManager.getSanitizedState(matchId, userId);
+          socket.emit('game_state', sanitizedState);
 
           // Notify other players in the match
           socket.to(`match_${matchId}`).emit('player_joined', {
