@@ -133,7 +133,6 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
 
   const handleLeaveGame = useCallback((showConfirmation = true) => {
     const shouldLeave = showConfirmation
-      ? confirm('Are you sure you want to leave the game? You may lose your stake.')
       : true;
 
     if (shouldLeave) {
