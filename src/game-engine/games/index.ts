@@ -28,5 +28,8 @@ export function initializeGames() {
   // Register Matatu
   registerGame('matatu', new MatatuGame());
 
+  // Register Clover Chess
+  registerGame('clover-chess', new CloverChessGame());
+
   console.log('[GameRegistry] All games initialized.');
 }
