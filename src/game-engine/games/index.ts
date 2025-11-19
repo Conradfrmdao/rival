@@ -3,6 +3,7 @@ import { RockPaperScissorsGame } from './rock-paper-scissors';
 import { TicTacToeGame } from './tic-tac-toe';
 import { BallInCupGame } from './ball-in-cup';
 import { PenaltyTakeGame } from './penalty-take';
+import { MatatuGame } from './matatu';
 
 /**
  * This file is the central registry for all games in the Rival platform.
