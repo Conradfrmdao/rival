@@ -16,7 +16,7 @@ describe('RockPaperScissorsGame', () => {
     expect(state.moves['p2']).toBeNull();
   });
 
-  it('should record a player's move', () => {
+  it('should record a player\'s move', () => {
     let state = game.createGame([player1, player2], stakes);
     state = game.makeMove(state, { playerId: 'p1', move: 'rock' });
     expect(state.moves['p1']).toBe('rock');
