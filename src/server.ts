@@ -1,6 +1,10 @@
 import { createServer } from 'http';
 import app from './app';
 import WebSocketService from './websocket';
+import { initializeGames } from './game-engine/games';
+
+// Initialize all game logic
+initializeGames();
 
 const PORT = process.env.PORT || 3001;
 
