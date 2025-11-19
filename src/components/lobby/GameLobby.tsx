@@ -47,7 +47,6 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
 
     // Validate stake
     if (stake < gameInfo.min_stake) {
-      alert(`Minimum stake is ${formatCurrency(gameInfo.min_stake)}`);
       return;
     }
 
