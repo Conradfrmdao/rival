@@ -142,8 +142,8 @@ export class CloverChessGame implements IGame<CloverChessGameState, CloverChessM
     switch (piece.type) {
         case 'pawn':
             return this.isValidPawnMove(state, piece, move);
-        // case 'rook':
-        //     return this.isValidRookMove(state, piece, move);
+        case 'rook':
+            return this.isValidRookMove(state, piece, move);
         // case 'knight':
         //     return this.isValidKnightMove(state, piece, move);
         // case 'bishop':
