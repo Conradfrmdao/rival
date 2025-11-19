@@ -315,25 +315,9 @@ class WebSocketService {
           socket.join(`match_${matchId}`);
           socket.data.currentMatch = matchId;
 
-          // Update socket ID in game state
-          const gameState = activeGames.get(matchId);
-          if (gameState) {
-            if (gameState.players.player1.id === userId) {
-              gameState.players.player1.socketId = socket.id;
-            } else if (gameState.players.player2 && gameState.players.player2.id === userId) {
-              gameState.players.player2.socketId = socket.id;
-            }
-
-            // Send current game state
-            socket.emit('game_state', {
-              matchId,
-              gameType: gameState.gameType,
-              gameState: gameState.gameState,
-              currentTurn: gameState.currentTurn,
-              players: gameState.players,
-              status: gameState.status
-            });
-          }
+          // Send current game state
+          const sanitizedState = GameManager.getSanitizedState(matchId, userId);
+          socket.emit('game_state', sanitizedState);
 
           // Notify other players about reconnection
           socket.to(`match_${matchId}`).emit('player_reconnected', {
