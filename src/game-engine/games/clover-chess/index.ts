@@ -148,8 +148,8 @@ export class CloverChessGame implements IGame<CloverChessGameState, CloverChessM
             return this.isValidKnightMove(state, piece, move);
         case 'bishop':
             return this.isValidBishopMove(state, piece, move);
-        // case 'queen':
-        //     return this.isValidQueenMove(state, piece, move);
+        case 'queen':
+            return this.isValidQueenMove(state, piece, move);
         // case 'king':
         //     return this.isValidKingMove(state, piece, move);
         default:
