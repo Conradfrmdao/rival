@@ -254,28 +254,16 @@ class WebSocketService {
         // Remove from user sockets mapping
         userSockets.delete(userId);
 
-        // Handle disconnection from active matches
         if (socket.data.currentMatch) {
           const matchId = socket.data.currentMatch;
-          const gameState = activeGames.get(matchId);
-
-          if (gameState) {
-            // Notify other players about disconnection
-            socket.to(`match_${matchId}`).emit('player_disconnected', {
-              player: {
-                id: userId,
-                username: username
-              },
-              reason: reason
-            });
-
-            // Mark player as disconnected
-            if (gameState.players.player1.id === userId) {
-              gameState.players.player1.socketId = '';
-            } else if (gameState.players.player2 && gameState.players.player2.id === userId) {
-              gameState.players.player2.socketId = '';
-            }
-          }
+          // Notify other players about disconnection
+          socket.to(`match_${matchId}`).emit('player_disconnected', {
+            player: {
+              id: userId,
+              username: username
+            },
+            reason: reason
+          });
         }
       });
 
