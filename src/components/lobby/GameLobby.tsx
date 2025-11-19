@@ -82,7 +82,6 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
     }
 
     if (!invitePhone) {
-      alert('Please enter a phone number to invite');
       return;
     }
 
