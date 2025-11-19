@@ -46,7 +46,7 @@ async function apiRequest<T>(
 
     return {
       success: true,
-      data,
+      data: data,
     };
   } catch (error) {
     console.error('API request failed:', error);
