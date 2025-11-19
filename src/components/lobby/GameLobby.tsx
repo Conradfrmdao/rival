@@ -39,6 +39,8 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
     return availableGames.find(game => game.type === selectedGame);
   };
 
+import axios from 'axios';
+
   const handlePlayNow = async () => {
     const gameInfo = getSelectedGameInfo();
     if (!gameInfo) return;
@@ -46,28 +48,37 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
     const stake = parseInt(stakeAmount);
 
     // Validate stake
-    if (stake < gameInfo.min_stake) {
-      return;
-    }
-
-    if (stake > gameInfo.max_stake) {
-      return;
-    }
-
-    if (stake > balance) {
+    if (stake < gameInfo.min_stake || stake > gameInfo.max_stake || stake > balance) {
       return;
     }
 
     setIsSearching(true);
     setMatchmaking(true);
 
-    // Simulate matchmaking (in real app, this would connect to backend)
-    setTimeout(() => {
+    try {
+      const response = await axios.post('/api/matches', {
+        action: 'join_matchmaking',
+        gameType: selectedGame,
+        stakeAmount: stake,
+      });
+
+      const { match } = response.data.data;
+
+      if (match.status === 'active') {
+        // Match found immediately
+        router.push(`/dashboard/game-room?matchId=${match.id}`);
+      } else {
+        // Entered matchmaking queue
+        // The UI will now wait for a WebSocket event to redirect
+        console.log('Entered matchmaking queue for match:', match.id);
+      }
+    } catch (error) {
+      console.error('Matchmaking failed:', error);
       setIsSearching(false);
       setMatchmaking(false);
-      // Navigate to game room
-      router.push(`/dashboard/game-room?game=${selectedGame}&stake=${stake}`);
-    }, 3000);
+    }
+    // No longer need to manually set isSearching and setMatchmaking to false here,
+    // as the UI will be driven by WebSocket events.
   };
 
   const handleInviteFriend = () => {
