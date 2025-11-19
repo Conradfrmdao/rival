@@ -237,9 +237,9 @@ class WebSocketService {
           // Update game state (this would typically sync with database)
           if (action === 'make_move') {
             // Update current turn for turn-based games
-            if (gameState.gameType === 'tic_tac_toe') {
+            if (gameState.gameType === 'tic_tac_toe' && gameState.players.player2) {
               gameState.currentTurn = gameState.players.player1.id === userId
-                ? gameState.players.player2?.id || null
+                ? gameState.players.player2.id || null
                 : gameState.players.player1.id;
             }
           }
