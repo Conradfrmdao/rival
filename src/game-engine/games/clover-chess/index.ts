@@ -212,6 +212,32 @@ export class CloverChessGame implements IGame<CloverChessGameState, CloverChessM
     return false;
   }
 
+  private isValidRookMove(state: CloverChessGameState, piece: Piece, move: CloverChessMove): boolean {
+    const { from, to } = move;
+    const dx = to.col - from.col;
+    const dy = to.row - from.row;
+
+    // Must be a purely horizontal or vertical move
+    if (dx !== 0 && dy !== 0) {
+        return false;
+    }
+
+    // Check for obstructions along the path
+    if (dx === 0) { // Vertical move
+        const step = dy > 0 ? 1 : -1;
+        for (let r = from.row + step; r !== to.row; r += step) {
+            if (state.board[r][from.col]) return false; // Path is blocked
+        }
+    } else { // Horizontal move
+        const step = dx > 0 ? 1 : -1;
+        for (let c = from.col + step; c !== to.col; c += step) {
+            if (state.board[from.row][c]) return false; // Path is blocked
+        }
+    }
+
+    return true;
+  }
+
   private createInitialBoard(): Board {
     const board: Board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
 
