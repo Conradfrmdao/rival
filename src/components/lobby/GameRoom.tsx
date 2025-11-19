@@ -132,8 +132,7 @@ export default function GameRoom({ onLeaveGame, onReadyToggle }: GameRoomProps) 
   };
 
   const handleLeaveGame = useCallback((showConfirmation = true) => {
-    const shouldLeave = showConfirmation
-      : true;
+    const shouldLeave = showConfirmation;
 
     if (shouldLeave) {
       if (socket) {
