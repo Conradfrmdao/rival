@@ -211,7 +211,7 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
                         type="tel"
                         placeholder="Friend's phone number"
                         value={invitePhone}
-                        onChange={(e) => setInvitePhone(e.target.value)}
+                        onChange={(e) => setInvitePhone((e.target as HTMLInputElement).value)}
                         label="Invite Friend"
                       />
                       <Button
