@@ -6,7 +6,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useWalletStore } from '@/store/walletStore';
 import { formatCurrency } from '@/lib/utils';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
