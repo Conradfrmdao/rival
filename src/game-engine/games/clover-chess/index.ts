@@ -153,8 +153,7 @@ export class CloverChessGame implements IGame<CloverChessGameState, CloverChessM
         case 'king':
             return this.isValidKingMove(state, piece, move);
         default:
-            // For now, allow other pieces to move anywhere as a placeholder
-            return true;
+            return false;
     }
   }
 
