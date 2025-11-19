@@ -170,7 +170,7 @@ class WebSocketService {
           // Update socket ID for the current player
           if (gameState.players.player1.id === userId) {
             gameState.players.player1.socketId = socket.id;
-          } else if (gameState.players.player2?.id === userId) {
+          } else if (gameState.players.player2 && gameState.players.player2.id === userId) {
             gameState.players.player2.socketId = socket.id;
           }
 
