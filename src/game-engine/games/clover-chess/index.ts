@@ -272,6 +272,11 @@ export class CloverChessGame implements IGame<CloverChessGameState, CloverChessM
     return true;
   }
 
+  private isValidQueenMove(state: CloverChessGameState, piece: Piece, move: CloverChessMove): boolean {
+    // A queen's move is a combination of a rook's and a bishop's move.
+    return this.isValidRookMove(state, piece, move) || this.isValidBishopMove(state, piece, move);
+  }
+
   private createInitialBoard(): Board {
     const board: Board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
 
