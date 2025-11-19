@@ -13,44 +13,41 @@ const APP_FEE_PERCENTAGE = 0.10; // 10%
 export function calculatePayouts(finalState: GameState): GameResult {
   const { status, players, stakes, winnerId } = finalState;
 
+  const payouts: { [playerId: string]: { amount: number; currency: string } } = {};
+
   if (status === 'draw') {
     // In a draw, each player gets their stake back. No fee is taken.
-    const payouts: { [playerId: string]: number } = {};
     players.forEach(player => {
-      payouts[player.id] = stakes.amount;
+      payouts[player.id] = { amount: stakes.amount, currency: stakes.currency };
     });
 
     return {
       status: 'draw',
       payouts,
+      platformFee: { amount: 0, currency: stakes.currency },
     };
   } else if (status === 'completed') {
     if (!winnerId) {
       throw new Error(`Game status is 'completed' but no winnerId is provided.`);
     }
 
-    const winner = players.find(p => p.id === winnerId);
-    const loser = players.find(p => p.id !== winnerId);
-
-    if (!winner) {
-      throw new Error(`Winner with ID '${winnerId}' not found in players array.`);
-    }
-
     const totalPot = stakes.amount * players.length;
     const appFee = totalPot * APP_FEE_PERCENTAGE;
     const winnerPayout = totalPot - appFee;
 
-    const payouts: { [playerId: string]: number } = {};
-    payouts[winner.id] = winnerPayout;
-    if (loser) {
-      payouts[loser.id] = 0;
-    }
+    // Initialize all players with a zero payout
+    players.forEach(player => {
+        payouts[player.id] = { amount: 0, currency: stakes.currency };
+    });
+
+    // Set the winner's payout
+    payouts[winnerId] = { amount: winnerPayout, currency: stakes.currency };
 
     return {
       status: 'completed',
-      winner,
-      loser,
+      winnerId,
       payouts,
+      platformFee: { amount: appFee, currency: stakes.currency },
     };
   } else {
     throw new Error(`Cannot calculate payouts for a game with status: '${status}'`);
