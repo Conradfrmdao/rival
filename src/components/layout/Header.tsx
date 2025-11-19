@@ -27,7 +27,8 @@ const Header: React.FC<HeaderProps> = ({ onLogout, currentPage }) => {
 
   const isActive = (href: string) => {
     if (href === '/dashboard' && currentPage === 'dashboard') return true;
-    return !!currentPage?.includes(href.split('/')[1]);
+    if (!currentPage) return false;
+    return currentPage.includes(href.split('/')[1]);
   };
 
   return (
