@@ -29,7 +29,7 @@ describe('TicTacToeGame', () => {
   it('should throw an error if a player moves to an occupied cell', () => {
     let state = game.createGame([player1, player2], stakes);
     state = game.makeMove(state, { playerId: 'p1', position: 0 });
-    expect(() => game.makeMove(state, { playerId: 'p2', position: 0 })).toThrow('Cell is already occupied.');
+    expect(() => game.makeMove(state, { playerId: 'p2', position: 0 })).toThrow('This cell is already occupied.');
   });
 
   it('should throw an error if a player moves out of turn', () => {
