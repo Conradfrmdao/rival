@@ -51,7 +51,6 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
     }
 
     if (stake > gameInfo.max_stake) {
-      alert(`Maximum stake is ${formatCurrency(gameInfo.max_stake)}`);
       return;
     }
 
