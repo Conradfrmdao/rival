@@ -89,24 +89,25 @@ export class RockPaperScissorsGame implements IGame<RockPaperScissorsGameState, 
   }
 
   getSanitizedState(state: RockPaperScissorsGameState, perspectivePlayerId?: string): Partial<RockPaperScissorsGameState> {
-    // If the game is over, reveal all moves.
-    if (state.status === 'completed' || state.status === 'draw') {
-      return { ...state };
-    }
+    const sanitizedState: any = { ...state };
 
-    const sanitized: any = { ...state };
-    delete sanitized.moves; // Remove the full moves object
+    const originalMoves = sanitizedState.moves;
+    delete sanitizedState.moves;
 
     if (perspectivePlayerId) {
       const opponent = state.players.find(p => p.id !== perspectivePlayerId);
-      sanitized.myMove = state.moves[perspectivePlayerId];
-      // Only reveal opponent's move if the game is over
-      sanitized.opponentMove = (state.status !== 'in-progress') ? state.moves[opponent!.id] : null;
+      sanitizedState.myMove = originalMoves[perspectivePlayerId];
+
+      if (state.status === 'completed' || state.status === 'draw') {
+        sanitizedState.opponentMove = originalMoves[opponent!.id];
+      } else {
+        sanitizedState.opponentMove = null;
+      }
     } else {
-        sanitized.myMove = null;
-        sanitized.opponentMove = null;
+      sanitizedState.myMove = null;
+      sanitizedState.opponentMove = null;
     }
 
-    return sanitized;
+    return sanitizedState;
   }
 }
