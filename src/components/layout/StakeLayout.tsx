@@ -42,7 +42,7 @@ const StakeLayout: React.FC<StakeLayoutProps> = ({ children, showSidebar = true 
 
   const handleLogout = () => {
     // Implement logout logic
-    window.location.href = '/';
+    router.push('/');
   };
 
   return (
