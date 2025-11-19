@@ -35,7 +35,7 @@ async function apiRequest<T>(
       ...options,
     });
 
-    const data = await response.json();
+    const data = await response.json() as T;
 
     if (!response.ok) {
       return {
