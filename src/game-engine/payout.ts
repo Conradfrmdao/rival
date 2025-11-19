@@ -26,7 +26,7 @@ export function calculatePayouts(finalState: GameState): GameResult {
     };
   } else if (status === 'completed') {
     if (!winnerId) {
-      throw new Error('Game status is 'completed' but no winnerId is provided.');
+      throw new Error(`Game status is 'completed' but no winnerId is provided.`);
     }
 
     const winner = players.find(p => p.id === winnerId);
