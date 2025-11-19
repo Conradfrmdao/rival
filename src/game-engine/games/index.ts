@@ -1,6 +1,7 @@
 import { registerGame } from '../manager';
 import { RockPaperScissorsGame } from './rock-paper-scissors';
 import { TicTacToeGame } from './tic-tac-toe';
+import { BallInCupGame } from './ball-in-cup';
 
 /**
  * This file is the central registry for all games in the Rival platform.
@@ -14,6 +15,9 @@ export function initializeGames() {
 
   // Register Tic Tac Toe
   registerGame('tic-tac-toe', new TicTacToeGame());
+
+  // Register Ball in the Cup
+  registerGame('ball-in-cup', new BallInCupGame());
 
   console.log('[GameRegistry] All games initialized.');
 }
