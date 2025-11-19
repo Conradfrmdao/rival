@@ -56,12 +56,9 @@ export class TicTacToeGame implements IGame<TicTacToeGameState, TicTacToeMove> {
     const newBoard = [...currentState.board];
     newBoard[position] = playerId;
 
-    const nextPlayerId = currentState.players.find(p => p.id !== playerId)!.id;
-
     const newState: TicTacToeGameState = {
       ...currentState,
       board: newBoard,
-      currentPlayerId: nextPlayerId,
       updatedAt: Date.now(),
     };
 
@@ -70,6 +67,10 @@ export class TicTacToeGame implements IGame<TicTacToeGameState, TicTacToeMove> {
       newState.status = winnerId === 'draw' ? 'draw' : 'completed';
       newState.winnerId = winnerId === 'draw' ? null : winnerId;
       newState.currentPlayerId = null; // No more moves
+    } else {
+      // Only switch players if the game is still in progress
+      const nextPlayerId = currentState.players.find(p => p.id !== playerId)!.id;
+      newState.currentPlayerId = nextPlayerId;
     }
 
     return newState;
@@ -103,16 +104,6 @@ export class TicTacToeGame implements IGame<TicTacToeGameState, TicTacToeMove> {
 
   getSanitizedState(state: TicTacToeGameState, perspectivePlayerId?: string): Partial<TicTacToeGameState> {
     // For Tic Tac Toe, the entire state is public knowledge, so we can return it as is.
-    return {
-      gameId: state.gameId,
-      gameType: state.gameType,
-      players: state.players,
-      stakes: state.stakes,
-      status: state.status,
-      board: state.board,
-      marks: state.marks,
-      currentPlayerId: state.currentPlayerId,
-      winnerId: state.winnerId,
-    };
+    return state;
   }
 }
