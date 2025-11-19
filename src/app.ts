@@ -35,7 +35,7 @@ app.use(cors({
 }));
 
 // Compression middleware
-app.use(compression() as express.RequestHandler);
+app.use(compression() as any);
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
