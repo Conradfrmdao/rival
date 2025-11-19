@@ -111,6 +111,6 @@ describe('calculatePayouts', () => {
             updatedAt: 0,
         };
 
-        expect(() => calculatePayouts(finalState)).toThrow('Game cannot be ended before it is completed or drawn.');
+        expect(() => calculatePayouts(finalState)).toThrow("Cannot calculate payouts for a game with status: 'in-progress'");
     });
 });
