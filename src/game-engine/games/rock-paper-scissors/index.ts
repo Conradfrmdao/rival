@@ -89,36 +89,24 @@ export class RockPaperScissorsGame implements IGame<RockPaperScissorsGameState, 
   }
 
   getSanitizedState(state: RockPaperScissorsGameState, perspectivePlayerId?: string): Partial<RockPaperScissorsGameState> {
-    const sanitizedState: Partial<RockPaperScissorsGameState> = {
-      gameId: state.gameId,
-      gameType: state.gameType,
-      players: state.players,
-      stakes: state.stakes,
-      status: state.status,
-      currentPlayerId: state.currentPlayerId,
-      winnerId: state.winnerId,
-    };
-
     // If the game is over, reveal all moves.
     if (state.status === 'completed' || state.status === 'draw') {
-      sanitizedState.moves = state.moves;
-      return sanitizedState;
+      return { ...state };
     }
 
-    // If the game is in progress, only show the move of the viewing player.
+    const sanitized: any = { ...state };
+    delete sanitized.moves; // Remove the full moves object
+
     if (perspectivePlayerId) {
-      sanitizedState.moves = {
-        [state.players[0].id]: state.moves[state.players[0].id] && (state.players[0].id === perspectivePlayerId || state.moves[state.players[1].id]) ? state.moves[state.players[0].id] : null,
-        [state.players[1].id]: state.moves[state.players[1].id] && (state.players[1].id === perspectivePlayerId || state.moves[state.players[0].id]) ? state.moves[state.players[1].id] : null,
-      };
+      const opponent = state.players.find(p => p.id !== perspectivePlayerId);
+      sanitized.myMove = state.moves[perspectivePlayerId];
+      // Only reveal opponent's move if the game is over
+      sanitized.opponentMove = (state.status !== 'in-progress') ? state.moves[opponent!.id] : null;
     } else {
-      // If no perspective is given, don't show any moves.
-      sanitizedState.moves = {
-        [state.players[0].id]: null,
-        [state.players[1].id]: null,
-      };
+        sanitized.myMove = null;
+        sanitized.opponentMove = null;
     }
 
-    return sanitizedState;
+    return sanitized;
   }
 }
