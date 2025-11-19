@@ -238,6 +238,15 @@ export class CloverChessGame implements IGame<CloverChessGameState, CloverChessM
     return true;
   }
 
+  private isValidKnightMove(state: CloverChessGameState, piece: Piece, move: CloverChessMove): boolean {
+    const { from, to } = move;
+    const dx = Math.abs(to.col - from.col);
+    const dy = Math.abs(to.row - from.row);
+
+    // A knight's move is L-shaped: 2 squares in one direction and 1 in a perpendicular one.
+    return (dx === 1 && dy === 2) || (dx === 2 && dy === 1);
+  }
+
   private createInitialBoard(): Board {
     const board: Board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
 
