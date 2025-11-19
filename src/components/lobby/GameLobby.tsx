@@ -151,7 +151,7 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
                   <Input
                     type="number"
                     value={stakeAmount}
-                    onChange={(e) => setStakeAmount(e.target.value)}
+                    onChange={(e) => setStakeAmount((e.target as HTMLInputElement).value)}
                     min="500"
                     max="50000"
                     step="500"
