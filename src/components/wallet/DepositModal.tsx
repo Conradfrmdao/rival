@@ -158,7 +158,7 @@ export default function DepositModal({
                 type="number"
                 label="Deposit Amount (UGX)"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => setAmount((e.target as HTMLInputElement).value)}
                 min="500"
                 max={maxAmount}
                 step="500"
