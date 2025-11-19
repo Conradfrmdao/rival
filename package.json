@@ -12,7 +12,8 @@
     "server:start": "node dist/server.js",
     "fullstack": "concurrently \"npm run dev\" \"npm run server:dev\"",
     "test:api": "ts-node src/tests/run-tests.ts",
-    "test:server": "npm run server:build && npm run test:api"
+    "test:server": "npm run server:build && npm run test:api",
+    "test": "jest"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
