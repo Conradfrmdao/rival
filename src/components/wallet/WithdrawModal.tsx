@@ -173,7 +173,7 @@ export default function WithdrawModal({
                 type="number"
                 label="Withdrawal Amount (UGX)"
                 value={amount}
-                onChange={(e) => handleAmountChange(e.target.value)}
+                onChange={(e) => handleAmountChange((e.target as HTMLInputElement).value)}
                 min={minAmount}
                 max={availableBalance}
                 step="500"
