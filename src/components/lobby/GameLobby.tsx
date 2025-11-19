@@ -55,7 +55,6 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
     }
 
     if (stake > balance) {
-      alert('Insufficient balance!');
       return;
     }
 
