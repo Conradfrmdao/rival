@@ -37,6 +37,11 @@
     "dist",
     "**/*.test.ts",
     "**/*.spec.ts",
-    "src/app/**/*" // Exclude Next.js app router files from server build
+    "src/app/**/*",
+    "src/components/**/*",
+    "src/hooks/**/*",
+    "src/store/**/*",
+    "src/actions/**/*",
+    "src/lib/websocket-client.ts"
   ]
 }
