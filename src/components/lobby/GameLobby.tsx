@@ -273,6 +273,20 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
                         <p>• Score more goals than your opponent to win</p>
                       </>
                     )}
+                    {selectedGame === 'clover_chess' && (
+                      <>
+                        <p>• Strategic chess gameplay with clover board modifications</p>
+                        <p>• Use traditional chess pieces and moves</p>
+                        <p>• Checkmate the opponent's king to win</p>
+                      </>
+                    )}
+                    {selectedGame === 'matatu' && (
+                      <>
+                        <p>• Fast-paced card matching game</p>
+                        <p>• Match cards by rank or suit</p>
+                        <p>• Be first to play all your cards to win</p>
+                      </>
+                    )}
                   </div>
                 </div>
               )}
