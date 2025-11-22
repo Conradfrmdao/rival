@@ -234,6 +234,8 @@ export default function Dashboard() {
                         {game.type === 'ball_in_cup' && '🏆'}
                         {game.type === 'tic_tac_toe' && '⭕'}
                         {game.type === 'penalty_take' && '⚽'}
+                        {game.type === 'clover_chess' && '♟️'}
+                        {game.type === 'matatu' && '🃏'}
                       </div>
                       <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                         {game.name}
