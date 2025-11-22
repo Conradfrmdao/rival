@@ -33,7 +33,7 @@ export default function Dashboard() {
         if (result.success && result.data) {
           setAvailableGames(result.data);
         } else {
-          // Fallback to default games if API fails
+          // Fallback to default games if API fails (includes all 6 games)
           const defaultGames = [
             {
               id: '1',
@@ -70,6 +70,24 @@ export default function Dashboard() {
               min_stake: 500,
               max_stake: 50000,
               icon_url: '/games/penalty.png'
+            },
+            {
+              id: '5',
+              name: 'Clover Chess',
+              type: 'clover_chess',
+              description: 'Strategic chess game with clover twist',
+              min_stake: 500,
+              max_stake: 50000,
+              icon_url: '/games/clover-chess.png'
+            },
+            {
+              id: '6',
+              name: 'Matatu',
+              type: 'matatu',
+              description: 'Fast-paced card game',
+              min_stake: 500,
+              max_stake: 50000,
+              icon_url: '/games/matatu.png'
             }
           ];
           setAvailableGames(defaultGames);
