@@ -35,6 +35,69 @@ function GameLobbyInner({ gameType: propGameType }: GameLobbyProps) {
     }
   }, [gameType]);
 
+  // Load default games if store is empty (fallback for testing)
+  useEffect(() => {
+    if (availableGames.length === 0) {
+      const defaultGames = [
+        {
+          id: '1',
+          name: 'Rock Paper Scissors',
+          type: 'rock_paper_scissors',
+          description: 'Classic hand game',
+          min_stake: 500,
+          max_stake: 50000,
+          icon_url: '/games/rps.png'
+        },
+        {
+          id: '2',
+          name: 'Ball in Cup',
+          type: 'ball_in_cup',
+          description: 'Find the hidden ball',
+          min_stake: 500,
+          max_stake: 50000,
+          icon_url: '/games/ball-in-cup.png'
+        },
+        {
+          id: '3',
+          name: 'Tic Tac Toe',
+          type: 'tic_tac_toe',
+          description: 'Three in a row wins',
+          min_stake: 500,
+          max_stake: 50000,
+          icon_url: '/games/tic-tac-toe.png'
+        },
+        {
+          id: '4',
+          name: 'Penalty Take',
+          type: 'penalty_take',
+          description: 'Score against the keeper',
+          min_stake: 500,
+          max_stake: 50000,
+          icon_url: '/games/penalty.png'
+        },
+        {
+          id: '5',
+          name: 'Clover Chess',
+          type: 'clover_chess',
+          description: 'Strategic chess game with clover twist',
+          min_stake: 500,
+          max_stake: 50000,
+          icon_url: '/games/clover-chess.png'
+        },
+        {
+          id: '6',
+          name: 'Matatu',
+          type: 'matatu',
+          description: 'Fast-paced card game',
+          min_stake: 500,
+          max_stake: 50000,
+          icon_url: '/games/matatu.png'
+        }
+      ];
+      setAvailableGames(defaultGames);
+    }
+  }, [availableGames.length, setAvailableGames]);
+
   const getSelectedGameInfo = () => {
     return availableGames.find(game => game.type === selectedGame);
   };
